@@ -1,0 +1,13 @@
+---
+version: "3.7"
+
+services:
+  app:
+    image: sudoku-app:latest
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: always
+    ports:
+      - "8080:80"
+    command: nginx -g daemon off;
