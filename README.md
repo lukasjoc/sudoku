@@ -18,5 +18,4 @@ Rules --> You cant write the same number:
 ## Setup:
 - `docker-compose up --build -d` the server
 - `docker-compose up --build -d` the vue app
-
---> Visit localhost:3000
+- ==> Visit localhost:3000
