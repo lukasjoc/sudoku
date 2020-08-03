@@ -1,6 +1,6 @@
 # sudoku
 
-> Odd/Even Sudoku Appand Solver
+> Odd/Even Sudoku App and Solving API
 
 The Sudoku Size is 9x9 and generally a good Sudoku Puzzle only has 1 solution
 
