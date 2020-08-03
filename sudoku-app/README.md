@@ -1,4 +1,4 @@
-# sudoku
+# sudoku-app
 
 ## Project setup
 ```
