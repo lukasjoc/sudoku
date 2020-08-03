@@ -9,7 +9,6 @@ Rules --> You cant write the same number:
 - vertivally
 - horizontally
 - in a box of 3x3
-- diagonally
 
 ## Specialities (Odd/Even Sudoku):
 - colored boxes can ONLY contain even numbers
@@ -19,3 +18,7 @@ Rules --> You cant write the same number:
 - `docker-compose up --build -d` the server
 - `docker-compose up --build -d` the vue app
 - ==> Visit localhost:3000
+
+## Some Additional Cool Features to implement:
+- Check for Mistakes like on [Sudoku.com](https://sudoku.com/expert/) mode
+- In solve Mode Highlight Possible paths where the numnber must be uniqe with instant erroring like on [Sudoku.com](https://sudoku.com/expert/) mode
