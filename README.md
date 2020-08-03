@@ -14,3 +14,9 @@ Rules --> You cant write the same number:
 ## Specialities (Odd/Even Sudoku):
 - colored boxes can ONLY contain even numbers
 - all other boxes MUST contain ONLY odd numbers
+
+## Setup:
+- `docker-compose up --build -d` the server
+- `docker-compose up --build -d` the vue app
+
+--> Visit localhost:3000
