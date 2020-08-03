@@ -1,24 +1,19 @@
 # sudoku
 
-> Odd/Even Sudoku App and Solving API
+## Project setup
+```
+npm install
+```
 
-The Sudoku Size is 9x9 and generally a good Sudoku Puzzle only has 1 solution
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
 
-## How does Sudoku work?
-Rules --> You cant write the same number:
-- vertivally
-- horizontally
-- in a box of 3x3
+### Compiles and minifies for production
+```
+npm run build
+```
 
-## Specialities (Odd/Even Sudoku):
-- colored boxes can ONLY contain even numbers
-- all other boxes MUST contain ONLY odd numbers
-
-## Setup:
-- `docker-compose up --build -d` the server
-- `docker-compose up --build -d` the vue app
-- ==> Visit localhost:3000
-
-## Some Additional Cool Features to implement:
-- Check for Mistakes like on [Sudoku.com](https://sudoku.com/expert/) mode
-- In solve Mode Highlight Possible paths where the numnber must be uniqe with instant erroring like on [Sudoku.com](https://sudoku.com/expert/) mode
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
