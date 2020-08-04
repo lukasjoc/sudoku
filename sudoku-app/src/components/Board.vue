@@ -1,13 +1,14 @@
 <template>
 	<div>
-	<div class="grid-sudoku">
-		<div v-for="row in sudokudata" class="grid-row">
-			<div v-for="cell in row" class="grid-cell">		
-				<input type="text" :key="cell.num" :value="cell.value" :class="{isEven: coloreven}" class="grid-cell-editor"  maxsize="1" />
-				</div>
-	</div>
-		</div>
-	</div>
+		<table>
+			<tbody>
+				<tr v-for="row in sudokudata">
+					<td v-for="cell in row">		
+						<input type="text" :key="cell.value" :value="cell.value" maxlength="1" />
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </template>
 
@@ -15,105 +16,111 @@
 	module.exports = {
 		data: ()  => {
 			return {	
-		
-		 sudokudata: [
-			
-			// this is row based know think about that
-
-			[
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 4, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 3, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": true},  {"value": 1, "isEven": true}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
-			],
-
-			[
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": true}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
-			],
-
-
-			[
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-				{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-			],
-
-			[
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
-				{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
-			], **/
-
-			]
-	}
+		 		sudokudata: [[
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 4, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 3, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": true},  {"value": 1, "isEven": true}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
+					],
+					[
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": true}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
+					],
+					[
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+						{"value": 2, "isEven": false}, {"value": 2, "isEven": false}, {"value": 2, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+					],
+					[
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false},
+						{"value": 1, "isEven": false}, {"value": 1, "isEven": false}, {"value": 1, "isEven": false}
+				]]
+		}
 	}
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+	$board_border: 2px;
+	$board_border_color: #000;
+	$cell_border_color: lightgrey;
+	
+	table {
+		width: 35rem;
+		height: 35rem;
+		border-collapse: collapse;
+		border-spacing: 0;
+	}
+	
+	tbody, td > input {
+		width: 100%;
+		height: 100%;
+	}
 
-input:focus {
-	outline: none;
-}
+	td, td > input {
+		margin: 0;
+		padding: 0;
+	}
 
-.grid-sudoku {
-  display: table;
-  background: white;
-  border:  1px solid black;
-}
+	td {
+		width: calc(100%/9);
+		height: calc(100%/9);
+		border: 1px solid $cell_border_color;
+	
+		input {
+		  border: none;
+		  text-align: center;
+		  outline: none;
+			font-size: 1.5rem;
+		}
+	
+		input:hover {
+			background: $cell_border_color;
+			transition: ease-in-out 0.2s;
+		}
 
-
-.grid-cell {
-	display: table-cell;
-	padding: 10px;
-  border: 1px solid gray;
-}
-
-.grid-cell-editor {
-	border: none;
-  width: 20px;
-  height: 20px;
-  font-family: 'Dosis', sans-serif;
-  font-weight: bold;
-  text-align: center;
-  font-size: 18px;
-	transition: all ease 1.0s;
-}
-
-.coloreven {
-	background-color: #a7ff9d;
-}
+	}
+	
+	tr:nth-child(3n) {
+		border-bottom: $board_border solid $board_border_color;
+	}
+	tr:nth-child(3n+1) {
+		border-top: $board_border solid $board_border_color;
+	}
+	
+	td:nth-child(3n) {
+		border-right: $board_border solid $board_border_color;
+	}
+	
+	td:nth-child(3n+1) {
+		border-left: $board_border solid $board_border_color;
+	}
 
 </style>
 
