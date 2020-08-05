@@ -8,11 +8,12 @@
             :key="cellIndex"
             class="cell"
             :class="{
-              'border-right': cellIndex === 2 || cellIndex === 5,
-              'border-bottom': rowIndex === 2 || rowIndex === 5,
               'isEven': cell.isEven,
               'isDefault': cell.isOriginal,
+              'border-right': cellIndex === 2 || cellIndex === 5,
+              'border-bottom': rowIndex === 2 || rowIndex === 5,
               'isActive': activeRow === rowIndex && activeCol === cellIndex,
+              'error': cell.value && checkValue(rowIndex, cellIndex, cell.value, cell.isEven)
             }"
             @click="makeActive(rowIndex, cellIndex, cell.isOriginal)"
           >{{cell.value}}</td>
@@ -52,8 +53,8 @@ module.exports = {
   },
 
   methods: {
-    makeActive(row, cell, defaultVal) {
-      if (defaultVal) return;
+    makeActive(row, cell, isOriginal) {
+      if (isOriginal) return;
       if (this.activeRow === row && this.activeCol === cell) {
         this.activeRow = -1;
         this.activeCol = -1;
@@ -63,31 +64,55 @@ module.exports = {
       this.activeCol = cell;
     },
 
-    // TODO: refact this later to be easier to read
     setValue(value) {
+
       let current_pos = this.data[this.activeRow][this.activeCol];
-      if (current_pos.isEven) {
-        if (value % 2 === 0) {
-          current_pos.value = value;
-          this.activeRow = -1;
-          this.activeCol = -1;
-        } else {
-          console.log(`This field just allows even values! given: ${value}`);
-        }
-      } else {
-        if (value % 2 !== 0) {
-          current_pos.value = value;
-          this.activeRow = -1;
-          this.activeCol = -1;
-        } else {
-          console.log(`This field just allows odd values! given: ${value}`);
-        }
-      }
+      current_pos.value = value;
+      this.activeRow = -1;
+      this.activeCol = -1;
     },
 
-    isCellInvalid(row, col, value) {
-      // TODO: check in col, row and region for same number
-      // Add class to change color to red if false
+    // if true then the value is not valid for the current row:col
+    checkValue(row, col, value, isEven) {
+      if (!value) return true;
+
+      if(isEven && (value%2) !== 0) return true
+      if(!isEven && (value%2) === 0) return true
+
+      // search in row for dup value
+      for (let c = 0; c < 9; c++) {
+        if (
+          this.data[row][c].value === value &&
+          this.data[row][c].isOriginal === false &&
+          c !== col
+        ) {
+          return true;
+        }
+      }
+
+      // search in column for dup value
+      for (let r = 0; r < 9; r++) {
+        if (
+          this.data[r][col].value === value &&
+          this.data[r][col].isOriginal === false &&
+          r !== row
+        ) {
+          return true;
+        }
+      }
+
+      // search in region for dup value
+      const rowStart = Math.floor(row / 3) * 3;
+      const colStart = Math.floor(col / 3) * 3;
+      for (let r = rowStart; r < rowStart + 3; r += 1) {
+        for (let c = colStart; c < colStart + 3; c += 1) {
+          if (this.data[r][c].value === value && !(r === row && c === col)) {
+            return true;
+          }
+        }
+      }
+
+      return false;
     },
   },
 };
@@ -140,6 +165,11 @@ td {
   color: #c00;
 }
 
+.cell.error {
+  background-color: #c00;
+  color: #fff;
+}
+
 .btn {
   width: 38px;
   height: 38px;
@@ -150,5 +180,4 @@ td {
 .btn:disabled {
   cursor: not-allowed;
 }
-
 </style>
