@@ -6,7 +6,7 @@
         <a href="https://github.com/lukasjoc/sudoku">{{application_version}}</a>
       </header>
       <div class="play-area">
-        <Board class="board" :data="defaultdata" />
+        <Board class="board" :data="defaultdata"  />
       </div>
     </div>
   </div>
@@ -76,4 +76,5 @@ header {
   width: 80%;
   margin: 0 auto;
 }
+
 </style>

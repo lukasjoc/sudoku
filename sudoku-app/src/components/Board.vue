@@ -1,49 +1,39 @@
 <template>
-  <form action="">
-    <table class="grid">
+  <div class="board">
+    <table>
       <tbody>
-        <tr class="grid-row" v-for="(row, rowIndex) in data" :key="rowIndex">
-          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
-
-            <input v-if="cell.value"
-              type="text"
-              maxlength="1"
-              :value="cell.value"
-              :class="[(cell.isEven)?'colored':'']"
-              pattern="[1-9]"
-              required
-              disabled
-            />
-            <input v-else
-              type="text"
-              v-model="value"
-              :class="[(cell.isEven)?'colored':'']"
-              maxlength="1"
-              pattern="[1-9]"
-              required
-            />
-          </td>
-
+        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+          <td
+            v-for="(cell, cellIndex) in row"
+            :key="cellIndex"
+            class="cell"
+            :class="{
+              'border-right': cellIndex === 2 || cellIndex === 5,
+              'border-bottom': rowIndex === 2 || rowIndex === 5,
+              'isEven': cell.isEven,
+              'isDefault': cell.isOriginal,
+              'isActive': activeRow === rowIndex && activeCol === cellIndex,
+            }"
+            @click="makeActive(rowIndex, cellIndex, cell.isOriginal)"
+          >{{cell.value}}</td>
         </tr>
       </tbody>
     </table>
-  </form>
+
+    <div class="row">
+      <button
+        type="button"
+        class="btn"
+        v-for="value in Array(9).keys()"
+        :key="value"
+        :disabled="activeRow === -1 || activeCol === -1"
+        @click="setValue(value + 1)"
+      >{{ value + 1 }}</button>
+    </div>
+  </div>
 </template>
 
 <script>
-
-// Same Numbe in Row
-// TODO: Validation on Cell:
-// Just Numbers [1- 9]
-//
-// Validation on Sudoku Rules:
-// Odd Numbes in non colored fields
-// Even Numbers in colored fields
-// Same Number in Region
-// Same Number in Row, Column
-// TODO:
-// highlight the correct cells on cell position
-
 module.exports = {
   name: "Board",
   props: {
@@ -56,35 +46,59 @@ module.exports = {
 
   data: () => {
     return {
-      disabled: false,
-      value: ""
+      activeRow: -1,
+      activeCol: -1,
     };
   },
 
-  methods:{
-    showIdFromData(rowId, colId) {
-      console.log(data[rowId][colId])
-    }
-  },
-
-  watch: {
-    // this watches an input and check if the input is a number from 1-9
-    inputValue: {
-      handler: function(value) {
-        console.log(value)
+  methods: {
+    makeActive(row, cell, defaultVal) {
+      if (defaultVal) return;
+      if (this.activeRow === row && this.activeCol === cell) {
+        this.activeRow = -1;
+        this.activeCol = -1;
+        return;
       }
-    }
-  }
+      this.activeRow = row;
+      this.activeCol = cell;
+    },
 
+    // TODO: refact this later to be easier to read
+    setValue(value) {
+      let current_pos = this.data[this.activeRow][this.activeCol];
+      if (current_pos.isEven) {
+        if (value % 2 === 0) {
+          current_pos.value = value;
+          this.activeRow = -1;
+          this.activeCol = -1;
+        } else {
+          console.log(`This field just allows even values! given: ${value}`);
+        }
+      } else {
+        if (value % 2 !== 0) {
+          current_pos.value = value;
+          this.activeRow = -1;
+          this.activeCol = -1;
+        } else {
+          console.log(`This field just allows odd values! given: ${value}`);
+        }
+      }
+    },
+
+    isCellInvalid(row, col, value) {
+      // TODO: check in col, row and region for same number
+      // Add class to change color to red if false
+    },
+  },
 };
 </script>
 
 <style lang="scss" scoped>
-
-$board_border: 2px;
-$board_border_color: #000;
+$board_border: 2.5px;
+$board_border_color: #333;
 $cell_border_color: #d3d3d3;
 $even_cell_color: #90ee90;
+$cell_color: #fff;
 
 table {
   width: 28rem;
@@ -93,56 +107,48 @@ table {
   border-spacing: 0;
 }
 
-tbody,
-td > input {
-  width: 100%;
-  height: 100%;
-}
-
-td,
-td > input {
+td {
   margin: 0;
   padding: 0;
-}
-
-td {
   width: calc(100% / 9);
   height: calc(100% / 9);
+  text-align: center;
+  font-size: 2rem;
+  background-color: $cell_color;
   border: 1.5px solid $cell_border_color;
-
-  input {
-    background: #fff;
-    border: none;
-    text-align: center;
-    outline: none;
-    font-size: 1.5rem;
-    transition: background 0.2s;
-  }
-  input[disabled] {
-    color: #000;
-  }
-//  input:invalid {
-//    background: coral;
-//  }
+  outline: none;
 }
 
-tr:nth-child(3n) {
-  border-bottom: $board_border solid $board_border_color;
-}
-tr:nth-child(3n + 1) {
-  border-top: $board_border solid $board_border_color;
-}
-
-td:nth-child(3n) {
+.cell.border-right {
   border-right: $board_border solid $board_border_color;
 }
 
-td:nth-child(3n + 1) {
-  border-left: $board_border solid $board_border_color;
+.cell.border-bottom {
+  border-bottom: $board_border solid $board_border_color;
 }
 
-.colored {
+.cell.isActive {
+  background: #add8e6;
+}
+
+.cell.isEven {
   background: $even_cell_color;
 }
-</style>
 
+.cell.isDefault {
+  font-weight: bold;
+  color: #c00;
+}
+
+.btn {
+  width: 38px;
+  height: 38px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+}
+
+</style>
