@@ -42,7 +42,7 @@ const defaultdata: object = [
   [
     { "value": 6, "isEven": true }, { "value": "", "isEven": true }, { "value": "", "isEven": true },
     { "value": "", "isEven": true }, { "value": "", "isEven": false }, { "value": "", "isEven": false },
-    { "value": "", "isEven": false }, { "value": "", "isEven": false }, { "value": 7, "isEven": true }
+    { "value": "", "isEven": false }, { "value": "", "isEven": false }, { "value": 7, "isEven": false }
   ]
 ]
 

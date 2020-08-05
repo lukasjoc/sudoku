@@ -32,6 +32,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+
 $basecolor: #000;
 
 * {
@@ -68,7 +69,7 @@ header {
   margin-top: 1rem;
   padding: 1rem;
   width: 100%;
-  background: rgb(7, 102, 203);
+  background: rgb(240, 240, 240);
 }
 
 .wrapper {

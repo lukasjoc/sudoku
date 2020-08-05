@@ -1,45 +1,91 @@
 <template>
-  <table class="grid">
-    <tbody>
-      <tr class="grid-row" v-for="row in data" :key="row.value">
-        <td v-for="cell in row" :key="cell.value">
-          <input
-            type="text"
-            maxlength="1"
-            :value="cell.value"
-            :disabled="(cell.value)?!disabled:disabled"
-            :class="[(cell.isEven)?'colored':'']"
-          />
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <form action="">
+    <table class="grid">
+      <tbody>
+        <tr class="grid-row" v-for="(row, rowIndex) in data" :key="rowIndex">
+          <td v-for="(cell, cellIndex) in row" :key="cellIndex">
+
+            <input v-if="cell.value"
+              type="text"
+              maxlength="1"
+              :value="cell.value"
+              :class="[(cell.isEven)?'colored':'']"
+              pattern="[1-9]"
+              required
+              disabled
+            />
+            <input v-else
+              type="text"
+              v-model="value"
+              :class="[(cell.isEven)?'colored':'']"
+              maxlength="1"
+              pattern="[1-9]"
+              required
+            />
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
+  </form>
 </template>
 
 <script>
+
+// Same Numbe in Row
+// TODO: Validation on Cell:
+// Just Numbers [1- 9]
+//
+// Validation on Sudoku Rules:
+// Odd Numbes in non colored fields
+// Even Numbers in colored fields
+// Same Number in Region
+// Same Number in Row, Column
+// TODO:
+// highlight the correct cells on cell position
+
 module.exports = {
   name: "Board",
   props: {
     data: {
-      type: Object,
+      type: Array,
       required: true,
       default: "",
     },
   },
+
   data: () => {
     return {
       disabled: false,
-      hover: false,
+      value: ""
     };
   },
+
+  methods:{
+    showIdFromData(rowId, colId) {
+      console.log(data[rowId][colId])
+    }
+  },
+
+  watch: {
+    // this watches an input and check if the input is a number from 1-9
+    inputValue: {
+      handler: function(value) {
+        console.log(value)
+      }
+    }
+  }
+
 };
 </script>
 
 <style lang="scss" scoped>
+
 $board_border: 2px;
 $board_border_color: #000;
 $cell_border_color: #d3d3d3;
-$even_cell_color: #e45757;
+$even_cell_color: #90ee90;
+
 table {
   width: 28rem;
   height: 28rem;
@@ -72,16 +118,14 @@ td {
     font-size: 1.5rem;
     transition: background 0.2s;
   }
-
-  //  input:hover {
-  //    background:$cell_border_color;
-  //    transition: background 0.2s;
-  //  }
-
   input[disabled] {
     color: #000;
   }
+//  input:invalid {
+//    background: coral;
+//  }
 }
+
 tr:nth-child(3n) {
   border-bottom: $board_border solid $board_border_color;
 }
