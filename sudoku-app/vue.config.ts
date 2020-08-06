@@ -1,7 +1,7 @@
-const webpack = require("webpack")
+import webpack from "webpack"
 
 module.exports = {
-  configureWebpack: config => {
+  configureWebpack: ()  => {
     return {
       plugins: [
         new webpack.DefinePlugin({

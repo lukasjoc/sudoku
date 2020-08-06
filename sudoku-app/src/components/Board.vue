@@ -30,6 +30,13 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="setValue(value + 1)"
       >{{ value + 1 }}</button>
+
+      <button
+        type="button"
+        class="btn ctrl-btn"
+        :disabled="activeRow === -1 || activeCol === -1"
+        @click="removeValue"
+      >Erase</button>
     </div>
   </div>
 </template>
@@ -65,19 +72,24 @@ module.exports = {
     },
 
     setValue(value) {
-
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.value = value;
       this.activeRow = -1;
       this.activeCol = -1;
     },
 
-    // if true then the value is not valid for the current row:col
+    removeValue() {
+      let current_pos = this.data[this.activeRow][this.activeCol];
+      current_pos.value = null;
+      this.activeRow = -1;
+      this.activeCol = -1;
+    },
+
     checkValue(row, col, value, isEven) {
       if (!value) return true;
 
-      if(isEven && (value%2) !== 0) return true
-      if(!isEven && (value%2) === 0) return true
+      if (isEven && value % 2 !== 0) return true;
+      if (!isEven && value % 2 === 0) return true;
 
       // search in row for dup value
       for (let c = 0; c < 9; c++) {
@@ -170,11 +182,20 @@ td {
   color: #fff;
 }
 
+.ctrl-btn,
+.btn {
+  font-size: 24px;
+  cursor: pointer;
+}
+
 .btn {
   width: 38px;
   height: 38px;
-  font-size: 24px;
-  cursor: pointer;
+}
+
+.ctrl-btn {
+  width: auto;
+  height: 38px;
 }
 
 .btn:disabled {
