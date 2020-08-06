@@ -3,36 +3,26 @@
     <div class="wrapper">
       <header>
         <h1>sudoku-solver</h1>
-        <a href="https://github.com/lukasjoc/sudoku">{{application_version}}</a>
+        <a href="https://github.com/lukasjoc/sudoku">v.{{application_version}}</a>
       </header>
-      <div class="play-area">
-        <Board class="board" :data="defaultdata"  />
-      </div>
+      <router-view />
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Board from "./components/Board.vue";
-import defaultdata from "./data";
-
 export default Vue.extend({
-  name: "App",
-  components: {
-    Board,
-  },
   data: () => {
     return {
-      defaultdata,
       application_version: process.env.VERSION,
     };
   },
 });
 </script>
 
-<style lang="scss">
 
+<style lang="scss">
 $basecolor: #000;
 
 * {
@@ -52,29 +42,31 @@ h1 {
   font-size: 3rem;
 }
 
-header {
-  width: 100%;
-  height: 5rem;
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: space-between;
+button {
+  font-size: 100%;
+  padding: 0.5em 1em;
+  color: rgba(0, 0, 0, 0.8);
+  border: none rgba(0, 0, 0, 0);
+  text-decoration: none;
+  border-radius: 2px;
+  cursor: pointer;
+  outline: none;
 }
 
-.play-area {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 1rem;
-  padding: 1rem;
+header {
   width: 100%;
-  background: rgb(240, 240, 240);
+  display: flex;
+  flex-flow: row nowrap;
+
+  align-items: center;
+  padding: 1rem;
+  * {
+    margin: 0.25rem;
+  }
 }
 
 .wrapper {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 }
-
 </style>

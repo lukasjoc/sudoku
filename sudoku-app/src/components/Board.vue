@@ -182,23 +182,19 @@ td {
   color: #fff;
 }
 
-.ctrl-btn,
-.btn {
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.btn {
-  width: 38px;
-  height: 38px;
-}
-
-.ctrl-btn {
-  width: auto;
-  height: 38px;
-}
-
 .btn:disabled {
   cursor: not-allowed;
 }
+
+.row {
+  button {
+    margin: 0.25rem;
+  }
+}
+
+.board {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
 </style>
