@@ -1,14 +1,14 @@
 <template>
   <div class="solve">
     <h3>Odd/Even Base Sudoku</h3>
-    <Board :data="defaultData"  />
+    <Board :data="puzzle"  />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
 import Board from "../components/Board.vue";
-import defaultData from "../data";
+import Parser from "../Parser";
 
 export default Vue.extend({
   name: "Edit",
@@ -17,9 +17,22 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      defaultData
+      default_puzzle: "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
+      puzzle: [[{}]]
+    }
+  },
+  mounted(){
+    this.parsePuzzle()
+  },
+  methods: {
+    parsePuzzle() {
+      const p = new Parser()
+      let data = p.fromStr(this.default_puzzle)
+      this.puzzle = data
+      console.log(data)
     }
   }
+
 });
 </script>
 

@@ -37,6 +37,7 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="removeValue"
       >Erase</button>
+
     </div>
   </div>
 </template>
@@ -190,11 +191,8 @@ td {
   button {
     margin: 0.25rem;
   }
-}
-
-.board {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
 }
 
 </style>
