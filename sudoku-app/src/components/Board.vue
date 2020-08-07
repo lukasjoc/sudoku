@@ -1,7 +1,7 @@
 <template>
   <div class="board">
     <table>
-      <tbody>
+      <tbody v-if="!disabled">
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
@@ -19,9 +19,25 @@
           >{{cell.value}}</td>
         </tr>
       </tbody>
+      
+      <tbody v-else>
+        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+          <td
+            v-for="(cell, cellIndex) in row"
+            :key="cellIndex"
+            class="cell"
+            :class="{
+              'isEven': cell.isEven,
+              'isDefault': cell.isOriginal,
+              'border-right': cellIndex === 2 || cellIndex === 5,
+              'border-bottom': rowIndex === 2 || rowIndex === 5,
+            }"
+          >{{cell.value}}</td>
+        </tr>
+      </tbody>
     </table>
 
-    <div class="row">
+    <div class="row" v-if="deliverControls">
       <button
         type="button"
         class="btn"
@@ -37,7 +53,6 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="removeValue"
       >Erase</button>
-
     </div>
   </div>
 </template>
@@ -49,7 +64,17 @@ module.exports = {
     data: {
       type: Array,
       required: true,
-      default: "",
+      default: [[{}]],
+    },
+    deliverControls: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 
@@ -61,6 +86,9 @@ module.exports = {
   },
 
   methods: {
+    // TODO: function to check if sudoku is solved
+    // just apply checkValue method on all cells on setValue
+    // if one returns true color it else alert to user and redirect to index pager
     makeActive(row, cell, isOriginal) {
       if (isOriginal) return;
       if (this.activeRow === row && this.activeCol === cell) {
@@ -94,22 +122,14 @@ module.exports = {
 
       // search in row for dup value
       for (let c = 0; c < 9; c++) {
-        if (
-          this.data[row][c].value === value &&
-          this.data[row][c].isOriginal === false &&
-          c !== col
-        ) {
+        if (this.data[row][c].value === value && c !== col) {
           return true;
         }
       }
 
       // search in column for dup value
       for (let r = 0; r < 9; r++) {
-        if (
-          this.data[r][col].value === value &&
-          this.data[r][col].isOriginal === false &&
-          r !== row
-        ) {
+        if (this.data[r][col].value === value && r !== row) {
           return true;
         }
       }
@@ -194,5 +214,4 @@ td {
   display: flex;
   flex-flow: row wrap;
 }
-
 </style>

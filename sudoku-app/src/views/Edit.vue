@@ -5,12 +5,9 @@
 </template>
 
 <script lang="ts">
-  import Vue from "vue"
-  export default Vue.extend({})
+import Vue from "vue";
+export default Vue.extend({});
 </script>
 
 <style lang="scss" scoped>
-// the edited sudoku could also be delivered though a simple id in the route
-// in the edit area the sudoku is then updates and the data is saved in the localstrage
-// sudokumasters.de is not taken...
 </style>

@@ -9,12 +9,12 @@ const routes: Array<RouteConfig> = [
     component: Index
   },
   {
-    path: "/edit",
+    path: "/edit/:puzzle",
     name: "Edit",
     component: () => import(/* webpackChunkName: "edit" */ "../views/Edit.vue")
   },
   {
-    path: "/solve/",
+    path: "/solve/:puzzle",
     name: "Solve",
     component: () => import(/* webpackChunkName: "solve" */ "../views/Solve.vue")
   }

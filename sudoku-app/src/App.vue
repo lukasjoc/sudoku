@@ -21,7 +21,6 @@ export default Vue.extend({
 });
 </script>
 
-
 <style lang="scss">
 $basecolor: #000;
 
@@ -53,13 +52,17 @@ button {
   outline: none;
 }
 
+button:hover {
+ background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10)); 
+}
+
 header {
   width: 100%;
   display: flex;
   flex-flow: row nowrap;
 
   align-items: center;
-  padding: 1rem;
+  padding: .35rem;
   * {
     margin: 0.25rem;
   }

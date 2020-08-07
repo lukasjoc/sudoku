@@ -1,30 +1,101 @@
 <template>
   <div>
-      <nav>
-        <h2>My Sudokus</h2>
-        <div>
-          <!-- TODO: Implement Create.vue view-->
-          <!--<button type="button" disabled>Create New Sudoku (v.0.2.0)</button> -->
-        </div>
-      </nav>
+    <nav>
+      <h2>My Sudokus</h2>
+      <div>
+        <!-- TODO: Implement Create.vue view-->
+        <!--<button type="button" disabled>Create New Sudoku (v.0.2.0)</button> -->
+      </div>
+    </nav>
 
-      <div class="sudoku-list">
-        <div class="sudoku-listitem">
-          <div class="preview">Odd/Even Base Sudoku</div>
-          <div class="actions">
-            <button type="button">
-              <router-link :to="{name: 'Solve'}">Solve</router-link>
-            </button>
-            <button type="button">
-              <router-link :to="{name: 'Edit'}">Edit</router-link>
-            </button>
-          </div>
+    <div class="sudoku-list">
+      <div class="sudoku-listitem" v-for="(p, index) in puzzles" :key="index">
+        <div class="preview">
+          <Board class="board" :data="preview" :deliverControls="false" :disabled="true" />
+        </div>
+
+        <div class="actions">
+          <router-link :to="{name: 'Solve', params: {puzzle: p.puzzle}}">
+            <button type="button">Solve</button>
+          </router-link>
+          <router-link :to="{name: 'Edit', params: {puzzle: p.puzzle}}">
+            <button type="button">Edit</button>
+          </router-link>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
+<script lang="ts">
+import Vue from "vue";
+import { SudokuCell, SudokuStringItems } from "@/shims-sudoku";
+
+import Board from "../components/Board.vue";
+import Parser from "../Parser";
+
+export default Vue.extend({
+  mounted() {
+    this.setDefaultPuzzle();
+    this.getPuzzles();
+    this.renderPreviewData();
+  },
+  components: {
+    Board,
+  },
+  data: () => {
+    return {
+      puzzles: [],
+      default_puzzle:
+        "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
+      preview: [[{}]],
+    };
+  },
+  methods: {
+    setDefaultPuzzle() {
+      let items: SudokuStringItems = [
+        {
+          id: 1,
+          puzzle: this.default_puzzle,
+        },
+        //         {
+        //         id: 2,
+        //         puzzle: this.default_puzzle,
+        //       },
+        // {
+        //         id: 3,
+        //         puzzle: this.default_puzzle,
+        //       },
+        //         {
+        //         id: 4,
+        //         puzzle: this.default_puzzle,
+        //       },
+        // {
+        //         id: 5,
+        //         puzzle: this.default_puzzle,
+        //       },
+        //         {
+        //         id: 6,
+        //         puzzle: this.default_puzzle,
+        //       },
+      ];
+      localStorage.setItem("puzzles", JSON.stringify(items));
+    },
+    getPuzzles() {
+      if (localStorage.puzzles) {
+        this.puzzles = JSON.parse(localStorage.puzzles);
+      }
+    },
+    renderPreviewData() {
+      const parser = new Parser();
+      this.preview = parser.fromStr(this.default_puzzle);
+    },
+  },
+});
+</script>
+
 <style lang="scss">
+$card_spacing: 0.35rem;
 
 nav {
   width: 100%;
@@ -36,41 +107,38 @@ nav {
   height: 5rem;
   align-items: center;
   justify-content: space-between;
-  padding: 1rem;
+  margin: $card_spacing;
+}
+
+.sudoku-list,
+.actions,
+.preview {
+  width: 100%;
 }
 
 .sudoku-list {
-  width: 100%;
   display: flex;
   flex-flow: row wrap;
-  // background: yellow;
 }
 
 .sudoku-listitem {
+  margin: $card_spacing;
   border-radius: 2px;
-  width: 28rem;
-  height: 28rem;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-  margin: 1rem;
-  padding: 1rem;
 }
 
 .preview {
-  width: 100%;
-  height: 80%;
-  background: #eee;
-  font-size: 100%;
-  padding: 1rem;
+  padding: $card_spacing;
+  filter: grayscale(60%);
 }
 
 .actions {
-  width: 100%;
-  height: 20%;
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
+  justify-content: flex-end;
   button {
-    margin: 0.25rem;
+    margin: $card_spacing;
   }
 }
 </style>
