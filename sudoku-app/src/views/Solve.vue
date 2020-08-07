@@ -17,19 +17,36 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      default_puzzle: "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
+      default_puzzle: "",
       puzzle: [[{}]]
     }
   },
   mounted(){
+    this.setDefaultPuzzle()
+    this.getPuzzle()
     this.parsePuzzle()
   },
   methods: {
     parsePuzzle() {
       const p = new Parser()
-      let data = p.fromStr(this.default_puzzle)
-      this.puzzle = data
-      console.log(data)
+      this.puzzle = p.fromStr(this.default_puzzle)
+      // console.log(data)
+    },
+   setDefaultPuzzle() {
+      interface SudokuStringItem {
+        id: number,
+        puzzle: string,
+      }
+      let item: SudokuStringItem = {
+        "id": 1,
+        "puzzle": "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
+      }
+      localStorage.setItem("puzzles", JSON.stringify(item))
+    },
+    getPuzzle() {
+      let puzzleStringObject: any = JSON.parse(localStorage.getItem("puzzles"))
+      console.log(`Data: ${puzzleStringObject}`)
+      this.default_puzzle = puzzleStringObject.puzzle
     }
   }
 

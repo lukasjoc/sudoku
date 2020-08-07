@@ -5,12 +5,8 @@
 </template>
 
 <script lang="ts">
-module.exports = {
-  data: () => {
-    return {
-    };
-  },
-}
+  import Vue from "vue"
+  export default Vue.extend({})
 </script>
 
 <style lang="scss" scoped>
