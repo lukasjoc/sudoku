@@ -1,7 +1,15 @@
 <template>
   <div class="solve">
-    <h3>Odd/Even Base Sudoku</h3>
-    <Board :data="puzzle" />
+    <div v-if="isPuzzle()">
+      <h2>Odd/Even Base Sudoku</h2>
+      <Board :data="puzzle" />
+    </div>
+    <div v-else>
+      <h2>The Puzzle {{this.$route.params.puzzle}} could not be found</h2>
+      <router-link :to="{name:'Index'}">
+        <button type="button">Go Home</button>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -17,16 +25,31 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      puzzle: [[{}]],
+      puzzle: [],
     };
   },
   mounted() {
     this.parsePuzzle();
   },
   methods: {
+    isPuzzle() {
+      console.log(this.puzzle);
+      if (this.puzzle.length >= 1) {
+        console.log(this.puzzle.length);
+        return true;
+      }
+      return false;
+    },
     parsePuzzle() {
       const parser = new Parser();
-      this.puzzle = parser.fromStr(this.$route.params.puzzle);
+      let puzzles = JSON.parse(localStorage.puzzles);
+      let paramsPuzzle = this.$route.params.puzzle;
+      for (let i = 0; i < puzzles.length; i++) {
+        if (puzzles[i].puzzle === paramsPuzzle) {
+          this.puzzle = parser.fromStr(puzzles[i].puzzle);
+        }
+      }
+      return;
     },
   },
 });

@@ -53,31 +53,12 @@ export default Vue.extend({
   },
   methods: {
     setDefaultPuzzle() {
+      if(localStorage.puzzles) return
       let items: SudokuStringItems = [
         {
           id: 1,
           puzzle: this.default_puzzle,
         },
-        //         {
-        //         id: 2,
-        //         puzzle: this.default_puzzle,
-        //       },
-        // {
-        //         id: 3,
-        //         puzzle: this.default_puzzle,
-        //       },
-        //         {
-        //         id: 4,
-        //         puzzle: this.default_puzzle,
-        //       },
-        // {
-        //         id: 5,
-        //         puzzle: this.default_puzzle,
-        //       },
-        //         {
-        //         id: 6,
-        //         puzzle: this.default_puzzle,
-        //       },
       ];
       localStorage.setItem("puzzles", JSON.stringify(items));
     },

@@ -1,7 +1,10 @@
 <template>
   <div class="board">
+    <h3>Edit</h3> 
+    <br>
+
     <table>
-      <tbody v-if="!disabled">
+      <tbody>
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
@@ -19,25 +22,9 @@
           >{{cell.value}}</td>
         </tr>
       </tbody>
-
-      <tbody v-else>
-        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
-          <td
-            v-for="(cell, cellIndex) in row"
-            :key="cellIndex"
-            class="cell"
-            :class="{
-              'isEven': cell.isEven,
-              'isDefault': cell.isOriginal,
-              'border-right': cellIndex === 2 || cellIndex === 5,
-              'border-bottom': rowIndex === 2 || rowIndex === 5,
-            }"
-          >{{cell.value}}</td>
-        </tr>
-      </tbody>
     </table>
 
-    <div class="row" v-if="deliverControls">
+    <div class="row">
       <button
         type="button"
         class="btn"
@@ -53,45 +40,59 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="removeValue"
       >Erase</button>
+
+      <button
+        type="button"
+        class="btn ctrl-btn"
+        @click="removeValues"
+      >Erase All</button>
+
+           <button
+        type="button"
+        class="btn ctrl-btn"
+        :disabled="activeRow === -1 || activeCol === -1"
+        @click="markEven"
+      >Mark Even</button>
+           <button
+        type="button"
+        class="btn ctrl-btn"
+        :disabled="activeRow === -1 || activeCol === -1"
+        @click="markOdd"
+      >Mark Odd</button>
+
+           <button
+        type="button"
+        class="btn ctrl-btn"
+        @click="saveChangesAndReload"
+      >Save Changes</button>
+
+
     </div>
   </div>
 </template>
 
-<script>
-// TODO: Move to TS
-module.exports = {
-  name: "Board",
-  props: {
-    data: {
-      type: Array,
-      required: true,
-      default: [[{}]],
-    },
-    deliverControls: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
+<script lang="ts">
+import Vue from "vue";
+import Parser from "../Parser"
 
+export default Vue.extend({
+  name: "BoardEdit",
   data: () => {
     return {
       activeRow: -1,
       activeCol: -1,
+      data: [],
     };
   },
-
+  mounted() {
+    this.parsePuzzle();
+  },
   methods: {
-    // TODO: function to check if sudoku is solved
-    // just apply checkValue method on all cells on setValue
-    // if one returns true color it else alert to user and redirect to index pager
+    parsePuzzle() {
+      const parser = new Parser();
+      this.data = parser.fromStr(this.$route.params.puzzle);
+    },
     makeActive(row, cell, isOriginal) {
-      if (isOriginal) return;
       if (this.activeRow === row && this.activeCol === cell) {
         this.activeRow = -1;
         this.activeCol = -1;
@@ -114,6 +115,45 @@ module.exports = {
       this.activeRow = -1;
       this.activeCol = -1;
     },
+    removeValues() {
+      for( let i of this.data) {
+        for(let ii of i) {
+          ii.value = null
+          ii.isEven = false
+          ii.isOriginal = false
+        }
+      }
+    },
+
+    markEven() {
+      let current_pos = this.data[this.activeRow][this.activeCol];
+      current_pos.isEven = true;
+      this.activeRow = -1;
+      this.activeCol = -1;
+    },
+    markOdd() {
+      let current_pos = this.data[this.activeRow][this.activeCol];
+      current_pos.isEven = false;
+      this.activeRow = -1;
+      this.activeCol = -1;
+    },
+
+    saveChangesAndReload() {
+      const parser = new Parser();
+      let puzzleString = parser.fromData(this.data)
+      let puzzles = JSON.parse(localStorage.puzzles)
+      let oldPuzzle = this.$route.params.puzzle
+     
+     // TODO: check if values are correct
+
+      for(let i=0; i < puzzles.length; i++) {
+        if(puzzles[i].puzzle === oldPuzzle) {
+          puzzles[i].puzzle = puzzleString
+        }
+      }
+      localStorage.setItem("puzzles", JSON.stringify(puzzles))
+      this.$router.push({name: "Index"})
+  },
 
     checkValue(row, col, value, isEven) {
       if (!value) return true;
@@ -149,7 +189,7 @@ module.exports = {
       return false;
     },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>
