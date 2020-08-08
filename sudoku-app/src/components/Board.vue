@@ -59,13 +59,14 @@
 
 <script lang="ts">
 import Vue from "vue";
+
 export default Vue.extend({
   name: "Board",
   props: {
     data: {
       type: Array,
       required: true,
-      default: [[{}]],
+      default: () => ([]),
     },
     deliverControls: {
       type: Boolean,
@@ -102,7 +103,7 @@ export default Vue.extend({
       this.activeRow = -1;
       this.activeCol = -1;
 
-      if (this.isComplete(value)) {
+      if (this.isComplete()) {
         this.showMessage("Success - Great Work!");
       }
     },
@@ -111,7 +112,7 @@ export default Vue.extend({
       alert(msg);
     },
 
-    isComplete(value: number): boolean {
+    isComplete(): boolean {
       for (let r = 0; r < 9; r += 1) {
         for (let c = 0; c < 9; c += 1) {
           let value = this.data[r][c].value;

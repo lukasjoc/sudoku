@@ -33,11 +33,7 @@ export default Vue.extend({
   },
   methods: {
     isPuzzle() {
-      console.log(this.puzzle);
-      if (this.puzzle.length >= 1) {
-        console.log(this.puzzle.length);
-        return true;
-      }
+      if (this.puzzle.length >= 1) return true
       return false;
     },
     parsePuzzle() {

@@ -86,14 +86,12 @@ export default Vue.extend({
       this.activeRow = row;
       this.activeCol = cell;
     },
-
     setValue(value) {
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.value = value;
       this.activeRow = -1;
       this.activeCol = -1;
     },
-
     removeValue() {
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.value = null;
@@ -111,7 +109,6 @@ export default Vue.extend({
         }
       }
     },
-
     markEven() {
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.isEven = true;
@@ -124,44 +121,52 @@ export default Vue.extend({
       this.activeRow = -1;
       this.activeCol = -1;
     },
-
     saveChangesAndReload() {
+
+      if(this.isNotValid()) {
+        alert("OK YOU MESSED SOMETHING UP. PLEASE FIX IT")
+        return
+      }
+
       const parser = new Parser();
       let puzzleString = parser.fromData(this.data);
       let puzzles = JSON.parse(localStorage.puzzles);
       let oldPuzzle = this.$route.params.puzzle;
-
-      // TODO: check if values are correct
 
       for (let i = 0; i < puzzles.length; i++) {
         if (puzzles[i].puzzle === oldPuzzle) {
           puzzles[i].puzzle = puzzleString;
         }
       }
+
       localStorage.setItem("puzzles", JSON.stringify(puzzles));
       this.$router.push({ name: "Index" });
     },
 
-    checkValue(row, col, value, isEven) {
-      if (!value) return true;
+  isNotValid() {
+    // TOOD: must have 4  colored fields in region, row, and col
+    // TODO: not basic rules same number in region, row, col etc
+    // TODO: not even Numbers in uneven fields
+    // TODO: at least one even fields as marking
+    return false
+  },
 
+  checkValue(row, col, value, isEven) {
       if (isEven && value % 2 !== 0) return true;
       if (!isEven && value % 2 === 0) return true;
 
-      // search in row for dup value
+       // search in row for dup value
       for (let c = 0; c < 9; c++) {
         if (this.data[row][c].value === value && c !== col) {
           return true;
         }
       }
-
       // search in column for dup value
       for (let r = 0; r < 9; r++) {
         if (this.data[r][col].value === value && r !== row) {
           return true;
         }
       }
-
       // search in region for dup value
       const rowStart = Math.floor(row / 3) * 3;
       const colStart = Math.floor(col / 3) * 3;
