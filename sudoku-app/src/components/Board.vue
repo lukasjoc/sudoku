@@ -13,7 +13,7 @@
               'border-right': cellIndex === 2 || cellIndex === 5,
               'border-bottom': rowIndex === 2 || rowIndex === 5,
               'isActive': activeRow === rowIndex && activeCol === cellIndex,
-              'error': cell.value && checkValue(rowIndex, cellIndex, cell.value, cell.isEven)
+              'error': cell.value && checkValue(rowIndex, cellIndex, cell.value, cell.isEven),
             }"
             @click="makeActive(rowIndex, cellIndex, cell.isOriginal)"
           >{{cell.value}}</td>
@@ -57,9 +57,9 @@
   </div>
 </template>
 
-<script>
-// TODO: Move to TS
-module.exports = {
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
   name: "Board",
   props: {
     data: {
@@ -78,19 +78,14 @@ module.exports = {
       default: false,
     },
   },
-
   data: () => {
     return {
       activeRow: -1,
       activeCol: -1,
     };
   },
-
   methods: {
-    // TODO: function to check if sudoku is solved
-    // just apply checkValue method on all cells on setValue
-    // if one returns true color it else alert to user and redirect to index pager
-    makeActive(row, cell, isOriginal) {
+    makeActive(row: number, cell: number, isOriginal: boolean): void {
       if (isOriginal) return;
       if (this.activeRow === row && this.activeCol === cell) {
         this.activeRow = -1;
@@ -101,23 +96,39 @@ module.exports = {
       this.activeCol = cell;
     },
 
-    setValue(value) {
+    setValue(value: number): void {
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.value = value;
       this.activeRow = -1;
       this.activeCol = -1;
+
+      if (this.isComplete(value)) {
+        this.showMessage("Success - Great Work!");
+      }
     },
 
-    removeValue() {
-      let current_pos = this.data[this.activeRow][this.activeCol];
-      current_pos.value = null;
-      this.activeRow = -1;
-      this.activeCol = -1;
+    showMessage(msg: string) {
+      alert(msg);
     },
 
-    checkValue(row, col, value, isEven) {
+    isComplete(value: number): boolean {
+      for (let r = 0; r < 9; r += 1) {
+        for (let c = 0; c < 9; c += 1) {
+          let value = this.data[r][c].value;
+          let isEven = this.data[r][c].isEven;
+          if (this.checkValue(r, c, value, isEven)) return false
+        }
+      }
+      return true;
+    },
+
+    checkValue(
+      row: number,
+      col: number,
+      value: number,
+      isEven: boolean
+    ): boolean {
       if (!value) return true;
-
       if (isEven && value % 2 !== 0) return true;
       if (!isEven && value % 2 === 0) return true;
 
@@ -148,8 +159,15 @@ module.exports = {
 
       return false;
     },
+
+    removeValue() {
+      let current_pos = this.data[this.activeRow][this.activeCol];
+      current_pos.value = null;
+      this.activeRow = -1;
+      this.activeCol = -1;
+    },
   },
-};
+});
 </script>
 
 <style lang="scss" scoped>

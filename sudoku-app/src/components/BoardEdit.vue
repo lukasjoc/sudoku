@@ -1,8 +1,6 @@
 <template>
   <div class="board">
-    <h3>Edit</h3> 
-    <br>
-
+    <h3>Edit</h3>
     <table>
       <tbody>
         <tr v-for="(row, rowIndex) in data" :key="rowIndex">
@@ -33,47 +31,34 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="setValue(value + 1)"
       >{{ value + 1 }}</button>
-
       <button
         type="button"
         class="btn ctrl-btn"
         :disabled="activeRow === -1 || activeCol === -1"
         @click="removeValue"
       >Erase</button>
-
+      <button type="button" class="btn ctrl-btn" @click="removeValues">Erase All</button>
       <button
-        type="button"
-        class="btn ctrl-btn"
-        @click="removeValues"
-      >Erase All</button>
-
-           <button
         type="button"
         class="btn ctrl-btn"
         :disabled="activeRow === -1 || activeCol === -1"
         @click="markEven"
       >Mark Even</button>
-           <button
+      <button
         type="button"
         class="btn ctrl-btn"
         :disabled="activeRow === -1 || activeCol === -1"
         @click="markOdd"
       >Mark Odd</button>
 
-           <button
-        type="button"
-        class="btn ctrl-btn"
-        @click="saveChangesAndReload"
-      >Save Changes</button>
-
-
+      <button type="button" class="btn ctrl-btn" @click="saveChangesAndReload">Save Changes</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
-import Parser from "../Parser"
+import Parser from "../Parser";
 
 export default Vue.extend({
   name: "BoardEdit",
@@ -116,11 +101,13 @@ export default Vue.extend({
       this.activeCol = -1;
     },
     removeValues() {
-      for( let i of this.data) {
-        for(let ii of i) {
-          ii.value = null
-          ii.isEven = false
-          ii.isOriginal = false
+      let a = prompt("Remove all values? Then type [yes]", "");
+      if (a.toLowerCase() !== "yes") return;
+      for (let i of this.data) {
+        for (let ii of i) {
+          ii.value = null;
+          ii.isEven = false;
+          ii.isOriginal = false;
         }
       }
     },
@@ -140,20 +127,20 @@ export default Vue.extend({
 
     saveChangesAndReload() {
       const parser = new Parser();
-      let puzzleString = parser.fromData(this.data)
-      let puzzles = JSON.parse(localStorage.puzzles)
-      let oldPuzzle = this.$route.params.puzzle
-     
-     // TODO: check if values are correct
+      let puzzleString = parser.fromData(this.data);
+      let puzzles = JSON.parse(localStorage.puzzles);
+      let oldPuzzle = this.$route.params.puzzle;
 
-      for(let i=0; i < puzzles.length; i++) {
-        if(puzzles[i].puzzle === oldPuzzle) {
-          puzzles[i].puzzle = puzzleString
+      // TODO: check if values are correct
+
+      for (let i = 0; i < puzzles.length; i++) {
+        if (puzzles[i].puzzle === oldPuzzle) {
+          puzzles[i].puzzle = puzzleString;
         }
       }
-      localStorage.setItem("puzzles", JSON.stringify(puzzles))
-      this.$router.push({name: "Index"})
-  },
+      localStorage.setItem("puzzles", JSON.stringify(puzzles));
+      this.$router.push({ name: "Index" });
+    },
 
     checkValue(row, col, value, isEven) {
       if (!value) return true;

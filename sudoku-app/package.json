@@ -1,7 +1,7 @@
 {
   "name": "sudoku-app",
   "version": "0.1.0",
-  "private": true,
+  "license" : "ISC",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"
