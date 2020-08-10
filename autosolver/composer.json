@@ -1,13 +1,15 @@
 {
-    "name": "lukasjoc/autosolver",
-    "description": "Solver Puzzles for sudoku-app",
-    "type": "proejct",
-    "license": "ISC",
-    "authors": [
-        {
-            "name": "lukasjoc",
-            "email": "jochamlu@gmail.com"
-        }
-    ],
-    "require": {}
+	"name": "lukasjoc/autosolver",
+	"license": "ISC",
+  "authors": [
+  	{
+    	"name": "lukasjoc",
+     	"email": "jochamlu@gmail.com"
+ 		}
+  ],
+	"scripts": {"serve": "php -S localhost:5050"},
+  "require": {
+  	"slim/slim": "^4.5",
+  	"slim/psr7": "^1.1"
+  }
 }
