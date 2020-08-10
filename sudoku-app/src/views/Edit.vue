@@ -1,5 +1,6 @@
 <template>
   <div class="solve">
+     <!-- <button @click="goBack()">Go Back</button> -->
     <BoardEdit :data="puzzle" />
   </div>
 </template>
@@ -25,9 +26,13 @@ export default Vue.extend({
   methods: {
     parsePuzzle() {
       const parser = new Parser();
-      this.puzzle = parser.fromStr(this.$route.params.puzzle);
+      this.puzzle = parser.fromStr(this.$route.query.puzzle);
     },
+   //  goBack() {
+   //    this.$router.go(-1)
+   //  }
   },
+ 
 });
 </script>
 

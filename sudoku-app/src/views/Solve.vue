@@ -1,11 +1,10 @@
 <template>
   <div class="solve">
     <div v-if="isPuzzle()">
-      <h2>Odd/Even Base Sudoku</h2>
       <Board :data="puzzle" />
     </div>
     <div v-else>
-      <h2>The Puzzle {{this.$route.params.puzzle}} could not be found</h2>
+      <h2>The Puzzle {{this.$route.query.puzzle}} could not be found</h2>
       <router-link :to="{name:'Index'}">
         <button type="button">Go Home</button>
       </router-link>
@@ -39,7 +38,7 @@ export default Vue.extend({
     parsePuzzle() {
       const parser = new Parser();
       let puzzles = JSON.parse(localStorage.puzzles);
-      let paramsPuzzle = this.$route.params.puzzle;
+      let paramsPuzzle = this.$route.query.puzzle;
       for (let i = 0; i < puzzles.length; i++) {
         if (puzzles[i].puzzle === paramsPuzzle) {
           this.puzzle = parser.fromStr(puzzles[i].puzzle);

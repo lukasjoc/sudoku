@@ -14,10 +14,10 @@
         </div>
 
         <div class="actions">
-          <router-link :to="{name: 'Solve', params: {puzzle: p.puzzle}}">
+          <router-link :to="{name: 'Solve', query: {puzzle: p.puzzle}}">
             <button type="button">Solve</button>
           </router-link>
-          <router-link :to="{name: 'Edit', params: {puzzle: p.puzzle}}">
+          <router-link :to="{name: 'Edit', query: {puzzle: p.puzzle}}">
             <button type="button">Edit</button>
           </router-link>
         </div>

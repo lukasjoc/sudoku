@@ -51,7 +51,7 @@
         @click="markOdd"
       >Mark Odd</button>
 
-      <button type="button" class="btn ctrl-btn" @click="saveChangesAndReload">Save Changes</button>
+      <button type="button" class="btn ctrl-btn" @click="saveChanges">Save Changes</button>
     </div>
   </div>
 </template>
@@ -75,7 +75,7 @@ export default Vue.extend({
   methods: {
     parsePuzzle() {
       const parser = new Parser();
-      this.data = parser.fromStr(this.$route.params.puzzle);
+      this.data = parser.fromStr(this.$route.query.puzzle);
     },
     makeActive(row, cell, isOriginal) {
       if (this.activeRow === row && this.activeCol === cell) {
@@ -121,17 +121,16 @@ export default Vue.extend({
       this.activeRow = -1;
       this.activeCol = -1;
     },
-    saveChangesAndReload() {
 
-      if(this.isNotValid()) {
-        alert("OK YOU MESSED SOMETHING UP. PLEASE FIX IT")
-        return
-      }
-
+    // TODO: EDIT SUDOKU VALIDATION ON SAVE
+    // TOOD: must have 4  colored fields in region, row, and col and > dont work
+    // TODO: not basic rules same number in region, row, col etc
+    // TODO: at least one even fields as marking
+    saveChanges() {
       const parser = new Parser();
       let puzzleString = parser.fromData(this.data);
       let puzzles = JSON.parse(localStorage.puzzles);
-      let oldPuzzle = this.$route.params.puzzle;
+      let oldPuzzle = this.$route.query.puzzle;
 
       for (let i = 0; i < puzzles.length; i++) {
         if (puzzles[i].puzzle === oldPuzzle) {
@@ -143,30 +142,30 @@ export default Vue.extend({
       this.$router.push({ name: "Index" });
     },
 
-  isNotValid() {
-    // TOOD: must have 4  colored fields in region, row, and col
-    // TODO: not basic rules same number in region, row, col etc
-    // TODO: not even Numbers in uneven fields
-    // TODO: at least one even fields as marking
-    return false
-  },
+    checkValue(
+      row: number,
+      col: number,
+      value: number,
+      isEven: boolean
+    ): boolean {
+      if ((isEven && value % 2 !== 0) || (!isEven && value % 2 === 0)) {
+        return true;
+      }
 
-  checkValue(row, col, value, isEven) {
-      if (isEven && value % 2 !== 0) return true;
-      if (!isEven && value % 2 === 0) return true;
-
-       // search in row for dup value
+      // search in row for dup value
       for (let c = 0; c < 9; c++) {
         if (this.data[row][c].value === value && c !== col) {
           return true;
         }
       }
+
       // search in column for dup value
       for (let r = 0; r < 9; r++) {
         if (this.data[r][col].value === value && r !== row) {
           return true;
         }
       }
+
       // search in region for dup value
       const rowStart = Math.floor(row / 3) * 3;
       const colStart = Math.floor(col / 3) * 3;
@@ -177,7 +176,6 @@ export default Vue.extend({
           }
         }
       }
-
       return false;
     },
   },

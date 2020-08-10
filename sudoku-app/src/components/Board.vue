@@ -2,7 +2,7 @@
   <div class="board">
     <table>
       <tbody v-if="!disabled">
-        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in puzzleData"  :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
             :key="cellIndex"
@@ -53,12 +53,15 @@
         :disabled="activeRow === -1 || activeCol === -1"
         @click="removeValue"
       >Erase</button>
+
+      <button type="button" class="btn ctrl-btn" @click="autoSolve">Auto Solve</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from "vue";
+import axios from "axios"
 
 export default Vue.extend({
   name: "Board",
@@ -66,7 +69,7 @@ export default Vue.extend({
     data: {
       type: Array,
       required: true,
-      default: () => ([]),
+      default: () => [],
     },
     deliverControls: {
       type: Boolean,
@@ -79,13 +82,31 @@ export default Vue.extend({
       default: false,
     },
   },
+  mounted() {
+    this.setData()
+  },
   data: () => {
     return {
       activeRow: -1,
       activeCol: -1,
+      puzzleData: []
     };
   },
   methods: {
+    setData() {this.puzzleData = this.data},
+
+   
+      // call endpoint to php and send puzzle as string to endpoint api/solve/?puzzle=$this.query.puzzle
+      // then process result and set this.data  = result component should rerender and alert should appear
+ 
+    async autoSolve() {
+      try {
+         let res = await axios.get(`https://localhost:5050/solve?puzzle=${this.$route.query.puzzle}`)
+         this.puzzleData = res
+      } catch (err) {
+         console.error(err);
+      }
+    },
     makeActive(row: number, cell: number, isOriginal: boolean): void {
       if (isOriginal) return;
       if (this.activeRow === row && this.activeCol === cell) {
@@ -117,7 +138,7 @@ export default Vue.extend({
         for (let c = 0; c < 9; c += 1) {
           let value = this.data[r][c].value;
           let isEven = this.data[r][c].isEven;
-          if (this.checkValue(r, c, value, isEven)) return false
+          if (this.checkValue(r, c, value, isEven)) return false;
         }
       }
       return true;
