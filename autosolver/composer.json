@@ -1,0 +1,13 @@
+{
+    "name": "lukasjoc/autosolver",
+    "description": "Solver Puzzles for sudoku-app",
+    "type": "proejct",
+    "license": "ISC",
+    "authors": [
+        {
+            "name": "lukasjoc",
+            "email": "jochamlu@gmail.com"
+        }
+    ],
+    "require": {}
+}
