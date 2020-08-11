@@ -2,7 +2,7 @@
   <div class="board">
     <table>
       <tbody v-if="!disabled">
-        <tr v-for="(row, rowIndex) in puzzleData"  :key="rowIndex">
+        <tr v-for="(row, rowIndex) in puzzleData" :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
             :key="cellIndex"
@@ -94,17 +94,13 @@ export default Vue.extend({
   },
   methods: {
     setData() {this.puzzleData = this.data},
-
-   
-      // call endpoint to php and send puzzle as string to endpoint api/solve/?puzzle=$this.query.puzzle
-      // then process result and set this.data  = result component should rerender and alert should appear
- 
     async autoSolve() {
       try {
-         let res = await axios.get(`https://localhost:5050/solve?puzzle=${this.$route.query.puzzle}`)
-         this.puzzleData = res
+         let res = await axios.get(`http://localhost:5050/solve/${this.$route.query.puzzle}`)
+         console.log(res.data);
+         this.puzzleData = res.data
       } catch (err) {
-         console.error(err);
+         alert(`${err}: Server isn't reachable`)
       }
     },
     makeActive(row: number, cell: number, isOriginal: boolean): void {
