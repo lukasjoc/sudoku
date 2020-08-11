@@ -1,1 +1,6 @@
 .DS_Store
+vendor/
+dist/
+node_modules/ 
+.vscode/
+*.sw?
