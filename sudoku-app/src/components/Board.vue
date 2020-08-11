@@ -21,7 +21,7 @@
       </tbody>
 
       <tbody v-else>
-        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in puzzleData" :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
             :key="cellIndex"
@@ -61,7 +61,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios"
+import axios from "axios";
 
 export default Vue.extend({
   name: "Board",
@@ -82,25 +82,26 @@ export default Vue.extend({
       default: false,
     },
   },
-  mounted() {
-    this.setData()
-  },
   data: () => {
     return {
       activeRow: -1,
       activeCol: -1,
-      puzzleData: []
+      puzzleData: [],
     };
   },
+  mounted() {
+    this.setData();
+  },
   methods: {
-    setData() {this.puzzleData = this.data},
+    setData() {
+      this.puzzleData = this.data
+    },
     async autoSolve() {
       try {
-         let res = await axios.get(`http://localhost:5050/solve/${this.$route.query.puzzle}`)
-         console.log(res.data);
-         this.puzzleData = res.data
+        let res = await axios.get( `http://localhost:5050/solve/${this.$route.query.puzzle}` );
+        this.puzzleData = JSON.parse(res.data);
       } catch (err) {
-         alert(`${err}: Server isn't reachable`)
+        alert(`${err}: Server isn't reachable`);
       }
     },
     makeActive(row: number, cell: number, isOriginal: boolean): void {
