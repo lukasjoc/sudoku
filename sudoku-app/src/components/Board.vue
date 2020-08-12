@@ -21,7 +21,7 @@
       </tbody>
 
       <tbody v-else>
-        <tr v-for="(row, rowIndex) in puzzleData" :key="rowIndex">
+        <tr v-for="(row, rowIndex) in data" :key="rowIndex">
           <td
             v-for="(cell, cellIndex) in row"
             :key="cellIndex"
@@ -94,11 +94,13 @@ export default Vue.extend({
   },
   methods: {
     setData() {
-      this.puzzleData = this.data
+      this.puzzleData = this.data;
     },
     async autoSolve() {
       try {
-        let res = await axios.get( `http://localhost:5050/solve/${this.$route.query.puzzle}` );
+        let res = await axios.get(
+          `http://localhost:5050/solve/${this.$route.query.puzzle}`
+        );
         this.puzzleData = JSON.parse(res.data);
       } catch (err) {
         alert(`${err}: Server isn't reachable`);
@@ -189,67 +191,6 @@ export default Vue.extend({
 });
 </script>
 
-<style lang="scss" scoped>
-$board_border: 2.5px;
-$board_border_color: #333;
-$cell_border_color: #d3d3d3;
-$even_cell_color: #90ee90;
-$cell_color: #fff;
-
-table {
-  width: 28rem;
-  height: 28rem;
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-td {
-  margin: 0;
-  padding: 0;
-  width: calc(100% / 9);
-  height: calc(100% / 9);
-  text-align: center;
-  font-size: 2rem;
-  background-color: $cell_color;
-  border: 1.5px solid $cell_border_color;
-  outline: none;
-}
-
-.cell.border-right {
-  border-right: $board_border solid $board_border_color;
-}
-
-.cell.border-bottom {
-  border-bottom: $board_border solid $board_border_color;
-}
-
-.cell.isActive {
-  background: #add8e6;
-}
-
-.cell.isEven {
-  background: $even_cell_color;
-}
-
-.cell.isDefault {
-  font-weight: bold;
-  color: #c00;
-}
-
-.cell.error {
-  background-color: #c00;
-  color: #fff;
-}
-
-.btn:disabled {
-  cursor: not-allowed;
-}
-
-.row {
-  button {
-    margin: 0.25rem;
-  }
-  display: flex;
-  flex-flow: row wrap;
-}
-</style>
+// <style lang="scss" scoped>
+// @import "~@/assets/scss/board.scss";
+// </style>

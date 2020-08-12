@@ -96,7 +96,7 @@ class Solver {
 	function hasEmty($row, $col) {
 		foreach (range(0, 8) as $row) {
 			foreach (range(0, 8) as $col) {
-				if ($this->puzzle[$row][$col]["value"] === "") return true;
+				if ($this->puzzle[$row][$col]["value"] == "") return true;
 			}
 		}
 		return false;
@@ -112,7 +112,7 @@ class Solver {
 		foreach (range(0, 8) as $row) {
 			foreach (range(0, 8) as $col) {
 				if (!$this->hasEmty($row, $col)) return true;
-				if ($this->puzzle[$row][$col]["value"] === "") {
+				if ($this->puzzle[$row][$col]["value"] == "") {
 					foreach (range(1, 9) as $n) {
 						if ($this->valid($row, $col, $n, $this->puzzle[$row][$col]["isEven"])) {
 							$this->puzzle[$row][$col]["value"] = $n;

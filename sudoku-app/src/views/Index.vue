@@ -14,12 +14,17 @@
         </div>
 
         <div class="actions">
-          <router-link :to="{name: 'Solve', query: {puzzle: p.puzzle}}">
-            <button type="button">Solve</button>
-          </router-link>
-          <router-link :to="{name: 'Edit', query: {puzzle: p.puzzle}}">
-            <button type="button">Edit</button>
-          </router-link>
+          <div class="text">
+            <h3>Default Odd/Even Sudoku</h3>
+          </div>
+          <div class="buttons">
+            <router-link :to="{name: 'Solve', query: {puzzle: p.puzzle}}">
+              <button type="button">Solve</button>
+            </router-link>
+            <router-link :to="{name: 'Edit', query: {puzzle: p.puzzle}}">
+              <button type="button">Edit</button>
+            </router-link>
+          </div>
         </div>
       </div>
     </div>
@@ -80,12 +85,6 @@ export default Vue.extend({
 $card_spacing: 0.35rem;
 
 nav {
-  width: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-}
-
-nav {
   height: 5rem;
   align-items: center;
   justify-content: space-between;
@@ -94,11 +93,14 @@ nav {
 
 .sudoku-list,
 .actions,
-.preview {
+.preview,
+nav {
   width: 100%;
 }
 
-.sudoku-list {
+.sudoku-list,
+.actions,
+nav {
   display: flex;
   flex-flow: row wrap;
 }
@@ -115,10 +117,8 @@ nav {
 }
 
 .actions {
-  display: flex;
-  flex-flow: row nowrap;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-around;
   button {
     margin: $card_spacing;
   }
