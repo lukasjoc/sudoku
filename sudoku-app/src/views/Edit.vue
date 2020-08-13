@@ -1,6 +1,5 @@
 <template>
   <div class="solve">
-     <!-- <button @click="goBack()">Go Back</button> -->
     <BoardEdit :data="puzzle" />
   </div>
 </template>
@@ -9,6 +8,7 @@
 import Vue from "vue";
 import BoardEdit from "../components/BoardEdit.vue";
 import Parser from "../Parser";
+import { SudokuGrid } from "@/shims-sudoku";
 
 export default Vue.extend({
   name: "Solve",
@@ -17,7 +17,7 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      puzzle: [[{}]],
+      puzzle: [] as SudokuGrid,
     };
   },
   mounted() {
@@ -26,13 +26,9 @@ export default Vue.extend({
   methods: {
     parsePuzzle() {
       const parser = new Parser();
-      this.puzzle = parser.fromStr(this.$route.query.puzzle);
+      this.puzzle = parser.fromStr(this.$route.query.puzzle as string);
     },
-   //  goBack() {
-   //    this.$router.go(-1)
-   //  }
   },
- 
 });
 </script>
 

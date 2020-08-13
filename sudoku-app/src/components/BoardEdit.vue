@@ -61,16 +61,17 @@ import Vue from "vue";
 import Parser from "../Parser";
 import axios from "axios";
 import Board from "./Board.vue";
+import { SudokuGrid } from '@/shims-sudoku';
 
 export default Vue.extend({
   name: "BoardEdit",
   components: { Board },
   data: () => {
     return {
-      activeRow: -1,
-      activeCol: -1,
-      data: [],
-      hasSolution: true,
+      activeRow: -1 as number,
+      activeCol: -1 as number,
+      data: [] as SudokuGrid, 
+      hasSolution: true as boolean,
     };
   },
   mounted() {
@@ -82,9 +83,9 @@ export default Vue.extend({
   methods: {
     parsePuzzle() {
       const parser = new Parser();
-      this.data = parser.fromStr(this.$route.query.puzzle);
+      this.data = parser.fromStr(this.$route.query.puzzle as string);
     },
-    makeActive(row, cell, isOriginal) {
+    makeActive(row: number, cell: number, isOriginal: boolean) {
       if (this.activeRow === row && this.activeCol === cell) {
         this.activeRow = -1;
         this.activeCol = -1;
@@ -93,7 +94,7 @@ export default Vue.extend({
       this.activeRow = row;
       this.activeCol = cell;
     },
-    setValue(value) {
+    setValue(value: number) {
       let current_pos = this.data[this.activeRow][this.activeCol];
       current_pos.value = value;
       this.activeRow = -1;
@@ -106,7 +107,7 @@ export default Vue.extend({
       this.activeCol = -1;
     },
     removeValues() {
-      let a = prompt("Remove all values? Then type [yes]", "");
+      let a: string = prompt("Remove all values? Then type [yes]", "") || "";
       if (a.toLowerCase() !== "yes") return;
       for (let i of this.data) {
         for (let ii of i) {
@@ -164,7 +165,6 @@ export default Vue.extend({
       localStorage.setItem("puzzles", JSON.stringify(puzzles));
       this.$router.push({ name: "Index" });
     },
-
     checkValue(
       row: number,
       col: number,

@@ -9,7 +9,7 @@ export type SudokuStringItems = SudokuStringItem[]
 
 // SudokuCell defines the data for a single SudokuCell
 export interface SudokuCell {
-  value?: string,
+  value?: any,
   isEven: boolean,
   isOriginal: boolean
 }

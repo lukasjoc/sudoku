@@ -1,0 +1,13 @@
+---
+version: "3.7"
+	services:
+		app:
+			build:
+				context: .
+				dockerfile: docker/Dockerfile
+			restart: always
+			command: npm run build
+			ports:
+				- "80:80"
+			network:
+				- default

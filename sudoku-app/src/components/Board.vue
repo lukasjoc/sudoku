@@ -60,8 +60,9 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
+import Vue, { PropOptions } from "vue";
 import axios from "axios";
+import { SudokuGrid, SudokuCell } from "@/shims-sudoku";
 
 export default Vue.extend({
   name: "Board",
@@ -70,7 +71,7 @@ export default Vue.extend({
       type: Array,
       required: true,
       default: () => [],
-    },
+    } as PropOptions<SudokuGrid>,
     deliverControls: {
       type: Boolean,
       required: false,
@@ -84,9 +85,9 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      activeRow: -1,
-      activeCol: -1,
-      puzzleData: [],
+      activeRow: -1 as number,
+      activeCol: -1 as number,
+      puzzleData: [] as SudokuGrid,
     };
   },
   mounted() {
@@ -191,6 +192,3 @@ export default Vue.extend({
 });
 </script>
 
-// <style lang="scss" scoped>
-// @import "~@/assets/scss/board.scss";
-// </style>

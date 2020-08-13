@@ -16,6 +16,7 @@
 import Vue from "vue";
 import Board from "../components/Board.vue";
 import Parser from "../Parser";
+import { SudokuGrid } from '@/shims-sudoku';
 
 export default Vue.extend({
   name: "Solve",
@@ -24,7 +25,7 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      puzzle: [],
+      puzzle: [] as SudokuGrid,
     };
   },
   mounted() {

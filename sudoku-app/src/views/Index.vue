@@ -33,7 +33,7 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { SudokuCell, SudokuStringItems } from "@/shims-sudoku";
+import { SudokuCell, SudokuStringItems, SudokuGrid } from "@/shims-sudoku";
 
 import Board from "../components/Board.vue";
 import Parser from "../Parser";
@@ -49,8 +49,8 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      puzzles: [{}],
-      preview: [[[{}]]],
+      puzzles: [] as SudokuStringItems,
+      preview: [] as SudokuGrid[],
     };
   },
   methods: {
@@ -73,7 +73,7 @@ export default Vue.extend({
     parsePreviewData() {
       const parser = new Parser();
       for (let puzzle of this.puzzles) {
-        let data = parser.fromStr(puzzle.puzzle);
+        let data: SudokuGrid = parser.fromStr(puzzle.puzzle);
         this.preview.push(data);
       }
     },
