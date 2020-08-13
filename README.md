@@ -1,6 +1,6 @@
-# sudoku-app
+# sudoku
 
-> Odd/Even Sudoku App and Solving API
+> Odd/Even Sudoku app and solver
 
 ## Deploy with docker (prod):
 Execute: `./deploy` \
