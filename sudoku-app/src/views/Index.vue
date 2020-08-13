@@ -29,14 +29,14 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { SudokuCell, SudokuStringItems, SudokuGrid } from "@/shims-sudoku";
+import { SudokuCell, SudokuStringItems, SudokuGrid } from "@/@types/shims-sudoku";
 
 import Board from "../components/Board.vue";
-import Parser from "../Parser";
+import Parser from "../assets/ts/Parser";
 
 export default Vue.extend({
   mounted() {
-    this.setDefaultPuzzle();
+    this.setDefault();
     this.getPuzzles();
   },
   components: {
@@ -48,9 +48,9 @@ export default Vue.extend({
     };
   },
   methods: {
-    setDefaultPuzzle() {
+    setDefault() {
       if (localStorage.puzzles) return;
-      let items: SudokuStringItems = [
+      let default_puzzles: SudokuStringItems = [
         {
           id: 1,
           puzzle:
@@ -67,7 +67,7 @@ export default Vue.extend({
         //     "ooeoeeoe3ooeo6eooeeeoooooeeeooooeeoeoeeeeoooooeooe3e4oeoo8oo6oeoooe1eeeo6eeeooooo",
         // },
       ];
-      localStorage.setItem("puzzles", JSON.stringify(items));
+      localStorage.setItem("puzzles", JSON.stringify(default_puzzles));
     },
     getPuzzles() {
       if (localStorage.puzzles) {

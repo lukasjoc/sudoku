@@ -1,13 +1,13 @@
 # build stage
-FROM node:lts-alpine as build-stage
+FROM mhart/alpine-node:latest as builder
 WORKDIR /app
-COPY package*.json ./
-RUN npm install
+COPY package.json package-lock.json ./
+RUN npm ci
 COPY . .
 RUN npm run build
 
 #-------
-FROM nginx:1.17-alpine
-WORKDIR /usr/share/nginx/html
+FROM nginx:mainline-alpine
+WORKDIR /usr/share/nginx/html/
 COPY $PWD/docker/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder /app/build/* ./
+COPY --from=builder /app/dist/ ./

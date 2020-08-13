@@ -1,0 +1,12 @@
+---
+ version: "3.7"
+ services:
+   sudokuapp:
+     build:
+       context: .
+       dockerfile: docker/Dockerfile
+     image: sudokuapp:latest
+     container_name: sudokuapp
+     ports:
+       - "8080:80"
+     restart: always

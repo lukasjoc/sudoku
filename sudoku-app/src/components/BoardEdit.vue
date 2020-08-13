@@ -58,10 +58,10 @@
 
 <script lang="ts">
 import Vue from "vue";
-import Parser from "../Parser";
 import axios from "axios";
 import Board from "./Board.vue";
-import { SudokuGrid } from '@/shims-sudoku';
+import Parser from "../assets/ts/Parser";
+import { SudokuGrid } from '@/@types/shims-sudoku';
 
 export default Vue.extend({
   name: "BoardEdit",

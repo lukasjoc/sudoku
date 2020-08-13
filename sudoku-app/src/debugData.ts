@@ -1,4 +1,4 @@
-import { SudokuGrid } from './shims-sudoku'
+import { SudokuGrid } from './@types/shims-sudoku'
 
 const debugData: SudokuGrid = [
   [

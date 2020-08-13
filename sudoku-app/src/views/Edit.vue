@@ -7,8 +7,8 @@
 <script lang="ts">
 import Vue from "vue";
 import BoardEdit from "../components/BoardEdit.vue";
-import Parser from "../Parser";
-import { SudokuGrid } from "@/shims-sudoku";
+import Parser from "../assets/ts/Parser";
+import { SudokuGrid } from "@/@types/shims-sudoku";
 
 export default Vue.extend({
   name: "Solve",

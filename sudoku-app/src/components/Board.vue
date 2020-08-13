@@ -62,7 +62,7 @@
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
 import axios from "axios";
-import { SudokuGrid, SudokuCell } from "@/shims-sudoku";
+import { SudokuGrid, SudokuCell } from "@/@types/shims-sudoku";
 
 export default Vue.extend({
   name: "Board",

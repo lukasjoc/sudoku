@@ -1,7 +1,7 @@
-import { RouteConfig } from "vue-router"
 import Index from "../views/Index.vue"
+import { RouteConfigs } from '@/@types/shims-router'
 
-const routes: Array<RouteConfig> = [
+const routes: RouteConfigs = [
   {
     path: "/",
     alias: "/index",
@@ -17,6 +17,11 @@ const routes: Array<RouteConfig> = [
     path: "/solve",
     name: "Solve",
     component: () => import(/* webpackChunkName: "solve" */ "../views/Solve.vue")
+  },
+  {
+    path: "*",
+    name: "NotFound",
+    component: () => import(/* webpackChunkName: "notfound" */ "../views/NotFound.vue")
   }
 ]
 

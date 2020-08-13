@@ -1,6 +1,6 @@
 "use-strict"
 
-import { SudokuDataParser, SudokuGrid, SudokuCell } from '@/shims-sudoku'
+import { SudokuDataParser, SudokuGrid, SudokuCell } from "@/@types/shims-sudoku"
 
 // Sudoku Parser offers methods to parse from string and to data structure and vice versa
 class Parser implements SudokuDataParser {
@@ -13,9 +13,9 @@ class Parser implements SudokuDataParser {
         if (y.value) {
           tmpl += y.value
         } else if (y.isEven) {
-          tmpl += 'e'
+          tmpl += "e"
         } else {
-          tmpl += 'o'
+          tmpl += "o"
         }
       }
     }
@@ -28,9 +28,9 @@ class Parser implements SudokuDataParser {
     let ch: any;
     for (ch of chars) {
       const arr_item: SudokuCell = {
-        "value": (ch === 'e' || ch === 'o') ? '' : parseInt(ch),
-        "isEven": (ch === 'e' || (ch % 2) === 0) ? true : false,
-        "isOriginal": (ch === 'e' || ch === 'o') ? false : true
+        "value": (ch === "e" || ch === "o") ? "" : parseInt(ch),
+        "isEven": (ch === "e" || (ch % 2) === 0) ? true : false,
+        "isOriginal": (ch === "e" || ch === "o") ? false : true
       }
       arr.push(arr_item)
     }
