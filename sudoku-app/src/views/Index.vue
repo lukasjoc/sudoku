@@ -2,15 +2,11 @@
   <div>
     <nav>
       <h2>My Sudokus</h2>
-      <div>
-        <!-- <button type="button" disabled>Create New Sudoku (v.0.2.0)</button> -->
-      </div>
     </nav>
-
     <div class="sudoku-list">
       <div class="sudoku-listitem" v-for="(p, index) in puzzles" :key="index">
         <div class="preview">
-          <Board class="board" :data="preview[index+1]" :deliverControls="false" :disabled="true" />
+          <Board class="board" :data="getData(p.puzzle)" :deliverControls="false" :disabled="true" />
         </div>
 
         <div class="actions">
@@ -42,7 +38,6 @@ export default Vue.extend({
   mounted() {
     this.setDefaultPuzzle();
     this.getPuzzles();
-    this.parsePreviewData();
   },
   components: {
     Board,
@@ -50,7 +45,6 @@ export default Vue.extend({
   data: () => {
     return {
       puzzles: [] as SudokuStringItems,
-      preview: [] as SudokuGrid[],
     };
   },
   methods: {
@@ -62,6 +56,16 @@ export default Vue.extend({
           puzzle:
             "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
         },
+        // {
+        //   id: 2,
+        //   puzzle:
+        //     "ooeoeeoe3ooeo6eooeeeooo1oeeeoo1oeeoeoeeeeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo5",
+        // },
+        // {
+        //   id: 3,
+        //   puzzle:
+        //     "ooeoeeoe3ooeo6eooeeeoooooeeeooooeeoeoeeeeoooooeooe3e4oeoo8oo6oeoooe1eeeo6eeeooooo",
+        // },
       ];
       localStorage.setItem("puzzles", JSON.stringify(items));
     },
@@ -70,12 +74,10 @@ export default Vue.extend({
         this.puzzles = JSON.parse(localStorage.puzzles);
       }
     },
-    parsePreviewData() {
+    getData(puzzle: string) {
       const parser = new Parser();
-      for (let puzzle of this.puzzles) {
-        let data: SudokuGrid = parser.fromStr(puzzle.puzzle);
-        this.preview.push(data);
-      }
+      let data: SudokuGrid = parser.fromStr(puzzle);
+      return data;
     },
   },
 });

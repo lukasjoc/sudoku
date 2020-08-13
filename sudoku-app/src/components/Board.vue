@@ -92,6 +92,7 @@ export default Vue.extend({
   },
   mounted() {
     this.setData();
+    console.log(this.setData());
   },
   methods: {
     setData() {
