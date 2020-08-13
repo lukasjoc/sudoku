@@ -5,8 +5,4 @@
 Execute `composer serve` \
 Visit `localhost:5050/solve/{VALID_PUZZLE_STRING}`
 
-## Deploy with docker as static bundle (prod):
-Execute: `./deploy` \
-Visit `localhost:5050/solve/{VALID_PUZZLE_STRING}`
-
 [lukasjoc](https://lukasjoc.com), 2020

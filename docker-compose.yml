@@ -1,0 +1,24 @@
+---
+version: "3.7"
+services:
+  autosolver:
+    build:
+      context: autosolver
+      dockerfile: docker/Dockerfile
+    image: autosolver:latest
+    container_name: autosolver
+    ports:
+      - "5050:80"
+    restart: always
+
+  sudokuapp:
+    build:
+      context: sudoku-app
+      dockerfile: docker/Dockerfile
+    image: sudokuapp:latest
+    container_name: sudokuapp
+    ports:
+      - "8080:80"
+    restart: always
+    depends_on:
+      - autosolver
