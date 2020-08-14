@@ -21,7 +21,7 @@ const routes: RouteConfigs = [
   {
     path: "*",
     name: "NotFound",
-    component: () => import(/* webpackChunkName: "notfound" */ "../views/NotFound.vue")
+    component: () => import(/* webpackChunkName: "notfound" */ "../views/NotFound.vue"),
   }
 ]
 

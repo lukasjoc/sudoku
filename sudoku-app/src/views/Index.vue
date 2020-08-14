@@ -6,7 +6,12 @@
     <div class="sudoku-list">
       <div class="sudoku-listitem" v-for="(p, index) in puzzles" :key="index">
         <div class="preview">
-          <Board class="board" :data="getData(p.puzzle)" :deliverControls="false" :disabled="true" />
+          <Board
+            class="board"
+            :data="parseString(p.puzzle)"
+            :deliverControls="false"
+            :disabled="true"
+          />
         </div>
 
         <div class="actions">
@@ -34,11 +39,13 @@ import {
   SudokuStringItems,
   SudokuGrid,
 } from "@/@types/shims-sudoku";
-
+import { changePageTitle, parseString } from "../assets/ts/shared";
 import Board from "../components/Board.vue";
-import Parser from "../assets/ts/Parser";
 
 export default Vue.extend({
+  beforeCreate() {
+    changePageTitle(`My Sudokus`);
+  },
   mounted() {
     this.setDefault();
     this.getPuzzles();
@@ -49,10 +56,12 @@ export default Vue.extend({
   data: () => {
     return {
       puzzles: [] as SudokuStringItems,
-      version: "",
+      version: "" as string,
     };
   },
   methods: {
+    // Shared Methods
+    parseString,
     setDefault() {
       if (localStorage.puzzles) return;
       let default_puzzles: SudokuStringItems = [
@@ -61,16 +70,6 @@ export default Vue.extend({
           puzzle:
             "1oeoeeoe3ooeo6eooeee3oo1oeee7o1oeeoeoe8eeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo7",
         },
-        // {
-        //   id: 2,
-        //   puzzle:
-        //     "ooeoeeoe3ooeo6eooeeeooo1oeeeoo1oeeoeoeeeeo5oooeooe3e4oeoo8oo6oeoooe1eeeo6eeeoooo5",
-        // },
-        // {
-        //   id: 3,
-        //   puzzle:
-        //     "ooeoeeoe3ooeo6eooeeeoooooeeeooooeeoeoeeeeoooooeooe3e4oeoo8oo6oeoooe1eeeo6eeeooooo",
-        // },
       ];
       localStorage.setItem("puzzles", JSON.stringify(default_puzzles));
     },
@@ -78,11 +77,6 @@ export default Vue.extend({
       if (localStorage.puzzles) {
         this.puzzles = JSON.parse(localStorage.puzzles);
       }
-    },
-    getData(puzzle: string) {
-      const parser = new Parser();
-      let data: SudokuGrid = parser.fromStr(puzzle);
-      return data;
     },
   },
 });

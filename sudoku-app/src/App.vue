@@ -3,7 +3,7 @@
     <div class="wrapper">
       <header>
         <h1>sudoku-solver</h1>
-        <a href="https://github.com/lukasjoc/sudoku">v.{{version}}</a>
+        <a href="https://github.com/lukasjoc/sudoku">v.{{getVersion()}}</a>
       </header>
       <router-view />
     </div>
@@ -18,16 +18,14 @@ export default Vue.extend({
     this.getVersion();
   },
   data: () => {
-    return {
-      version: "" as string,
-    };
+    return {};
   },
   methods: {
     getVersion() {
       const package_version: string = JSON.stringify(
         require("../package.json").version
       );
-      this.version = package_version;
+      return JSON.parse(package_version);
     },
   },
 });
