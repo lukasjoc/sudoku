@@ -3,13 +3,9 @@
     "target": "es5",
     "module": "esnext",
     "strict": true,
-    "jsx": "preserve",
-    "importHelpers": true,
     "moduleResolution": "node",
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
-    "removeComments": false,
-    "sourceMap": true,
+    "removeComments": true,
+    "sourceMap": false,
     "baseUrl": ".",
     "types": [
       "webpack-env"
@@ -29,7 +25,6 @@
   "include": [
     "src/**/*.ts",
     "src/**/*.vue",
-    "tests/**/*.ts",
   ],
   "exclude": [
     "node_modules"

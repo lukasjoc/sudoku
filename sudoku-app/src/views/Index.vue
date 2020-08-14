@@ -29,7 +29,11 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { SudokuCell, SudokuStringItems, SudokuGrid } from "@/@types/shims-sudoku";
+import {
+  SudokuCell,
+  SudokuStringItems,
+  SudokuGrid,
+} from "@/@types/shims-sudoku";
 
 import Board from "../components/Board.vue";
 import Parser from "../assets/ts/Parser";
@@ -45,6 +49,7 @@ export default Vue.extend({
   data: () => {
     return {
       puzzles: [] as SudokuStringItems,
+      version: "",
     };
   },
   methods: {

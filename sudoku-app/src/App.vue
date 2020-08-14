@@ -3,7 +3,7 @@
     <div class="wrapper">
       <header>
         <h1>sudoku-solver</h1>
-        <a href="https://github.com/lukasjoc/sudoku">v.{{application_version}}</a>
+        <a href="https://github.com/lukasjoc/sudoku">v.{{version}}</a>
       </header>
       <router-view />
     </div>
@@ -14,13 +14,22 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "App",
+  created() {
+    this.getVersion();
+  },
   data: () => {
     return {
-      application_version: process.env.VERSION,
+      version: "" as string,
     };
   },
   methods: {
-  }
+    getVersion() {
+      const package_version: string = JSON.stringify(
+        require("../package.json").version
+      );
+      this.version = package_version;
+    },
+  },
 });
 </script>
 
@@ -56,7 +65,11 @@ button {
 }
 
 button:hover {
- background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10)); 
+  background-image: linear-gradient(
+    transparent,
+    rgba(0, 0, 0, 0.05) 40%,
+    rgba(0, 0, 0, 0.1)
+  );
 }
 
 header {
@@ -65,7 +78,7 @@ header {
   flex-flow: row nowrap;
 
   align-items: center;
-  padding: .35rem;
+  padding: 0.35rem;
   * {
     margin: 0.25rem;
   }
