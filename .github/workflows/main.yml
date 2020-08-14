@@ -1,6 +1,6 @@
 name: Checking Docker Build after push
 
- on:
+on:
    push:
      branches: [ master ]
    pull_request:
