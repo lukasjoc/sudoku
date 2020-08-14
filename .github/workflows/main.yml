@@ -1,15 +1,16 @@
 name: Checking Docker Build after push
 
-on:
-  push: [ master ]
-  pull_request:
-    branches: [ master ]
+ on:
+   push:
+     branches: [ master ]
+   pull_request:
+     branches: [ master ]
 
 jobs:
   build:
     runs-on: ubuntu-20.04
-    timeout-minutes: 5
+    timeout-minutes: 30
     steps:
       - name: Building Docker
       - uses: actions/checkout@v2
-      - run: ./deploy
+        run: ./deploy
