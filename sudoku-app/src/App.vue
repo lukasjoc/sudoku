@@ -14,12 +14,6 @@
 import Vue from "vue";
 export default Vue.extend({
   name: "App",
-  created() {
-    this.getVersion();
-  },
-  data: () => {
-    return {};
-  },
   methods: {
     getVersion() {
       const package_version: string = JSON.stringify(

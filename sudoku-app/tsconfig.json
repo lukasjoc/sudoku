@@ -4,7 +4,6 @@
     "module": "esnext",
     "strict": true,
     "moduleResolution": "node",
-    "downlevelIteration": true,
     "removeComments": true,
     "sourceMap": false,
     "baseUrl": ".",
