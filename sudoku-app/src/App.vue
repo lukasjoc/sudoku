@@ -26,6 +26,10 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
+
+// Spinner Css
+@import "../node_modules/nprogress/nprogress.css";
+
 $basecolor: #000;
 
 * {

@@ -61,7 +61,6 @@
 
 <script lang="ts">
 import Vue, { PropOptions } from "vue";
-import axios from "axios";
 import { SudokuGrid, SudokuCell } from "@/@types/shims-sudoku";
 import { showMessage, solvePuzzle, checkValue } from "@/assets/ts/shared";
 

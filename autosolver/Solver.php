@@ -21,7 +21,7 @@ class Solver {
    */
   function __construct(string $str) {
     if (strlen($str) !== 81) {
-      throw new \Exception("Error sudoku");
+      throw new \Exception("Invalid sudoku string");
     }
     $this->puzzle = $this::fromStr($str);
   }

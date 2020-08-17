@@ -58,7 +58,6 @@
 
 <script lang="ts">
 import Vue from "vue";
-import axios from "axios";
 import Board from "./Board.vue";
 import Parser from "../assets/ts/Parser";
 import { SudokuGrid } from "@/@types/shims-sudoku";
@@ -79,13 +78,11 @@ export default Vue.extend({
       activeCol: -1 as number,
       data: [] as SudokuGrid,
       hasSolution: true as boolean,
+      validOddEven: 0 as number,
     };
   },
   mounted() {
     this.data = parseString(this.$route.query.puzzle as string);
-  },
-  updated() {
-    this.isValidPuzzle();
   },
   methods: {
     checkValue,
@@ -94,7 +91,7 @@ export default Vue.extend({
       this.activeRow = -1;
       this.activeCol = -1;
     },
-    
+
     makeActive(row: number, cell: number, isOriginal: boolean) {
       if (this.activeRow === row && this.activeCol === cell) {
         this.resetBoard();
@@ -136,25 +133,26 @@ export default Vue.extend({
     },
 
     async isValidPuzzle() {
-      let puzzleString: string = fromData(this.data);
-      const data = await solvePuzzle(puzzleString);
-      for (let row of data) {
-        for (let col of row) {
-          if (col.value === "") {
-            this.hasSolution = false;
-            return false;
+        let puzzleString: string = fromData(this.data);
+        const data = await solvePuzzle(puzzleString);
+        for (let row of data) {
+          for (let col of row) {
+            if (col.value === "") {
+              this.hasSolution = false;
+              return false;
+            }
           }
         }
-      }
-      this.hasSolution = true;
-      return true;
+        this.hasSolution = true;
+        return true;
     },
 
-    saveChanges() {
-      if (!this.hasSolution) {
-        showMessage("This puzzle is not solvable!");
-        return;
+    async saveChanges() {
+      if (! await this.isValidPuzzle()) {
+        showMessage("This puzzle is not solvable!") 
+        return
       }
+     
       let puzzles = JSON.parse(localStorage.puzzles);
       let oldPuzzle = this.$route.query.puzzle;
       let puzzleString = fromData(this.data);
@@ -166,7 +164,6 @@ export default Vue.extend({
       localStorage.setItem("puzzles", JSON.stringify(puzzles));
       this.$router.push({ name: "Index" });
     },
-
   },
 });
 </script>

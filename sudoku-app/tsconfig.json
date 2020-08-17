@@ -3,6 +3,7 @@
     "target": "es5",
     "module": "esnext",
     "strict": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
     "removeComments": true,
     "sourceMap": false,

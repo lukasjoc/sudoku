@@ -1,6 +1,7 @@
 "use-strict";
 
-import axios from "axios";
+import client from "./axios"
+
 import { SudokuGrid } from "@/@types/shims-sudoku";
 import Parser from "./Parser";
 
@@ -27,7 +28,7 @@ export function showMessage(message: string): void {
 export async function solvePuzzle(puzzle: string) {
   try {
     let target: string = `http://localhost:5050/solve/${puzzle}`
-    let res = await axios.get(target);
+    let res = await client.get(target);
     return JSON.parse(res.data)
   } catch (err) {
     showMessage(`${err}: Server isn't reachable`)
