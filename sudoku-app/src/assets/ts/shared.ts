@@ -27,7 +27,7 @@ export function showMessage(message: string): void {
 
 export async function solvePuzzle(puzzle: string) {
   try {
-    let target: string = `http://localhost:5050/solve/${puzzle}`
+    let target: string = `/solve/${puzzle}`
     let res = await client.get(target);
     return JSON.parse(res.data)
   } catch (err) {
