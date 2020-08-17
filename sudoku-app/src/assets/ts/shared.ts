@@ -29,7 +29,7 @@ export async function solvePuzzle(puzzle: string) {
   try {
     let target: string = `/solve/${puzzle}`
     let res = await client.get(target);
-    return JSON.parse(res.data)
+    return res.data
   } catch (err) {
     showMessage(`${err}: Server isn't reachable`)
   }

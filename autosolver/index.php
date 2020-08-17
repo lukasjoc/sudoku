@@ -28,9 +28,9 @@ $app->get("/solve/{puzzle}", function (Request $req, Response $res, $args) {
  *
  * @param string $puzzle_string
  * @access public
- * @return string (json encoded)
+ * @return array
  */
-function solveOddEven(?string $puzzle_string): string {
+function solveOddEven(?string $puzzle_string): array {
   require_once("./Solver.php");
   $solver = new Solver($puzzle_string);
   $solver->solve();

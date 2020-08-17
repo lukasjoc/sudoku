@@ -130,9 +130,9 @@ class Solver {
    * getSolvedPuzzle
    *
    * @access public
-   * @return string
+   * @return array
    */
-  function getSolvedPuzzle(): string {
-    return json_encode($this->puzzle);
+  function getSolvedPuzzle(): array {
+    return $this->puzzle;
   }
 }
