@@ -9,7 +9,7 @@ Visit `localhost:5050/solve/{VALID_PUZZLE_STRING}`
 
 ### Intro:
 This solver uses a [recursive](https://en.wikipedia.org/wiki/Recursion) algorithm to solve the sudoku. \
-In addion to recursively calling itself it uses backtracking to step back if the solver gets into a dead end. \
+In addion to recursively calling itself it uses backtracking to step back if the solver gets into a dead end.
 
 ### In depth:
 Firstly we need to find an emty field.
@@ -25,7 +25,7 @@ This is one approach of 3 command ones
 - [Brute-force search (BFS)](https://en.wikipedia.org/wiki/Brute-force_search)
 - Recursion & Backtracking
 
-```
+```php
 /**
  * solve
  *
