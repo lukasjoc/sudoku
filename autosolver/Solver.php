@@ -19,7 +19,7 @@ class Solver {
    * @param string $str
    * @access public
    */
-  function __construct(string $str) {
+  public function __construct(string $str) {
     if (strlen($str) !== 81) {
       throw new \Exception("Invalid sudoku string");
     }
@@ -57,7 +57,7 @@ class Solver {
    * @access public
    * @return bool
    */
-  function valid(int $row, int $col, int $value, bool $isEven): bool {
+  public function valid(int $row, int $col, int $value, bool $isEven): bool {
 
     // check value scope first
     if ($isEven && ($value % 2) !== 0) return false;
@@ -93,7 +93,7 @@ class Solver {
    * @access public
    * @return void
    */
-  function hasEmty($row, $col) {
+  public function hasEmty($row, $col) {
     foreach (range(0, 8) as $row) {
       foreach (range(0, 8) as $col) {
         if ($this->puzzle[$row][$col]["value"] == "") return true;
@@ -106,9 +106,9 @@ class Solver {
    * solve
    *
    * @access public
-   * @return void
+   * @return bool
    */
-  function solve() {
+  public function solve(): bool {
     foreach (range(0, 8) as $row) {
       foreach (range(0, 8) as $col) {
         if (!$this->hasEmty($row, $col)) return true;
@@ -132,7 +132,7 @@ class Solver {
    * @access public
    * @return array
    */
-  function getSolvedPuzzle(): array {
+  public function getSolvedPuzzle(): array {
     return $this->puzzle;
   }
 }
