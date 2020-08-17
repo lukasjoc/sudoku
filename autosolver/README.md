@@ -15,9 +15,9 @@ In addion to calling itself it uses [backtracking](https://en.wikipedia.org/wiki
 Firstly we need to find an emty field.
 If there isn't an emty field anymore we are done and return true. \
 Otherwise the we trie to call a validation function on a numeric range from 1..9 until the validation function \
-returns true then we set the value and call the the solver again.
+returns true then we set the value and call the the solver again. \
 If the validation function never returns true we use [backtracking](https://en.wikipedia.org/wiki/Backtracking) and reset 
-the field to an emty field.
+the field to an emty field. \
 The solver is done calling itself if it can't find emty fields anymore then it returns true
 
 ### This is one approach of 3 common ones
@@ -32,7 +32,7 @@ The solver is done calling itself if it can't find emty fields anymore then it r
  * @access public
  * @return bool
  */
-function solve(): bool {
+public function solve(): bool {
   foreach (range(0, 8) as $row) {
     foreach (range(0, 8) as $col) {
       if (!$this->hasEmty($row, $col)) return true; // check for emty cells
