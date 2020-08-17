@@ -14,8 +14,8 @@ In addion to calling itself it uses [backtracking](https://en.wikipedia.org/wiki
 ### In depth:
 Firstly we need to find an emty field.
 If there isn't an emty field anymore we are done and return true. \
-Otherwise the we trie to call a validation function on a numeric range from 1..9 until the validation function \
-returns true then we set the value and call the the solver again. \
+Otherwise the we try to call a validation function on a numeric range from 1..9 until the validation function \
+returns true. We set the value and call the the solver again. \
 If the validation function never returns true we use [backtracking](https://en.wikipedia.org/wiki/Backtracking) and reset 
 the field to an emty field. \
 The solver is done calling itself if it can't find emty fields anymore then it returns true
