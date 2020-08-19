@@ -1,18 +1,15 @@
 {
-	"name": "lukasjoc/autosolver",
-	"license": "ISC",
-  "authors": [
-  	{
-    	"name": "lukasjoc",
-     	"email": "jochamlu@gmail.com"
- 		}
-  ],
-	"scripts": {"serve": "php -S localhost:5050"},
-  "require": {
-  	"slim/slim": "^4.5",
-  	"slim/psr7": "^1.1"
+  "name": "lukasjoc/autosolver",
+  "description": "Odd/Even Sudoku solver using a recursive backtracking approach",
+  "license": "ISC",
+  "scripts": {
+    "serve": "php -S localhost:5050"
   },
-	"config": {
-		"process-timeout": 0
-	}
+  "require": {
+    "slim/slim": "^4.5",
+    "slim/psr7": "^1.1"
+  },
+  "config": {
+    "process-timeout": 0
+  }
 }
