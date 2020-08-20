@@ -6,7 +6,7 @@
 class Solver {
 
   /**
-   * puzzle 
+   * puzzle
    *
    * @var array
    * @access protected
@@ -93,7 +93,7 @@ class Solver {
    * @access public
    * @return void
    */
-  public function hasEmty($row, $col) {
+  public function hasEmty($row, $col): void {
     foreach (range(0, 8) as $row) {
       foreach (range(0, 8) as $col) {
         if ($this->puzzle[$row][$col]["value"] == "") return true;
