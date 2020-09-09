@@ -91,9 +91,9 @@ class Solver {
    * @param mixed $row
    * @param mixed $col
    * @access public
-   * @return void
+   * @return bool
    */
-  public function hasEmty($row, $col): void {
+  public function hasEmty($row, $col): bool {
     foreach (range(0, 8) as $row) {
       foreach (range(0, 8) as $col) {
         if ($this->puzzle[$row][$col]["value"] == "") return true;
