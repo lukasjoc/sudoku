@@ -13,7 +13,7 @@ services:
 
   sudokuapp:
     build:
-      context: sudoku-app
+      context: sudokuapp
       dockerfile: docker/Dockerfile
     image: sudokuapp:latest
     container_name: sudokuapp

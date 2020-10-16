@@ -1,9 +1,9 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
+import SDefault from "@/components/SDefault/SDefault.vue";
+import router from "./router/router";
 import store from "./store";
 
-createApp(App)
-  .use(store)
-  .use(router)
-  .mount("#app");
+const app = createApp(SDefault);
+app.use(store);
+app.use(router);
+app.mount("#app");
