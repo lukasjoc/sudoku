@@ -1,23 +1,10 @@
-# app
+# sudoku-app
 
-## Project setup
+> Sudoku web app written in Vue
 
-```
-npm install
-```
+## Get started for development with (devel):
 
-### Compiles and hot-reloads for development
+Execute `npm install; npm run serve` \
+Visit `localhost:8080`
 
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[lukasjoc](https://lukasjoc.com), 2020

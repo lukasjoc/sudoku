@@ -2,6 +2,7 @@
 	<div>
 		<router-link :to="{ name: 'solve', params: { puzzle: puzzle } }">
 			Solve {{ puzzle }}
+			<button type="button" class="nes-btn">Solve</button>
 		</router-link>
 		<br />
 		<br />
