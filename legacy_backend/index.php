@@ -50,5 +50,4 @@ function solveOddEven(?string $puzzle_string): array {
   return $solver->getSolvedPuzzle();
 }
 
-
 $app->run();

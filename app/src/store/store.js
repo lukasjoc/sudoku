@@ -1,5 +1,5 @@
 import { createStore } from "vuex"
-import Vue from "vue"
+// import Vue from "vue"
 
 // import solve from "./modules/solve"
 // import edit from "./modules/edit"
@@ -25,6 +25,11 @@ export default createStore({
 			if (state.solved[puzzleString]) return true
 			return false
 		},
+		// get value from state unsolved puzzles
+		getPuzzleData(state, puzzleString) {
+			if (state.unsolved.length === 0) return []
+			return state.unsolved[puzzleString]
+		},
 	},
 	actions: {
 		// get solution by puzzleString
@@ -40,7 +45,7 @@ export default createStore({
 		// get puzzle by puzzleString (unsolved just data structure)
 		async getPuzzle({ commit }, puzzleString) {
 			try {
-				let unsolved = await Vue.axios(`/parse/${puzzleString}`)
+				let unsolved = await axios(`/parse/${puzzleString}`)
 				commit("updateUnsolved", puzzleString, unsolved.data)
 			} catch (e) {
 				console.error(e)
