@@ -56,7 +56,7 @@ export default createStore({
 		// add new ones to unsolved..
 		syncStates(state, puzzleString) {
 			if (state.solved[puzzleString]) delete state.solved[puzzleString]
-			if (state.unsolved[puzzleString]) delete state.unsolved.solved[puzzleString]
+			if (state.unsolved[puzzleString]) delete state.unsolved[puzzleString]
 		},
 
 		// update solved state
